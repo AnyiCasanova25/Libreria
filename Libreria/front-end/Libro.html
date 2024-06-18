@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/front-end/img/img3.jfif">
+    <title>Libro</title>
+    <link rel="stylesheet" href="/Front-end/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body><!--ESTO ADENTRO DEL BODY style="background-color: blue;"-->
+    <div class="container" style="margin-top: 25px;">
+        <!-- Menú en el lado izquierdo -->
+        <div class="menu">
+            <a href="/front-end/inicio.html">
+                <img src="/front-end/img/img5.jfif" class="img-logo"></a>
+            <ul class="color-blanco">
+                <a href="/front-end/Libro.html"> Libros</a>
+                <a href="/front-end/Usuario.html">Usuario</a>
+            </ul>
+        </div>
+
+        <!-- Contenido en el lado derecho -->
+        <div class="">
+            <!-- <div class="table-container"> -->
+            <div style="display: flex;">
+                <h2>Libros</h2>
+            </div>
+            <div class="row">
+                <div class="col col-5">
+                    <input type="text" class="form-control" placeholder="Recipient's username"
+                        aria-label="Recipient's username" aria-describedby="button-addon2">
+                </div>
+                <div class="col col-3">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Buscar</button>
+                </div>
+
+                <!-- <div class="col col-3">
+                    <label for="filtroEstado"></label>
+                    <select class="form-select" id="filtroEstado">
+                        <option value="1">Todos</option>
+                        <option value="2">Activos</option>
+                        <option value="3">Inactivos</option>
+                    </select>
+                </div> -->
+                <div class="col col-4">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#modalRegistroLibro">
+                        Registrar Libro
+                    </button>
+                    <button type="button" class="btn btn-danger ms-2" onclick="limpiarFormulario()">Limpiar</button>
+                </div>
+            </div>
+
+
+
+            <!-- Tabla -->
+            <br>
+            <table class="table table-striped" style="margin-top: 25px;">
+                <tr>
+                    <th>Id Libro</th>
+                    <th>Autor </th>
+                    <th>Titulo </th>
+                    <th>Genero</th>
+                    <th>ISNB</th>
+                    <th>Ejemplares Disponibles</th>
+                    <th>Ejemplares Ocupados</th>
+                </tr>
+
+                <tbody id="cuerpoTabla"></tbody>
+            </table>
+            <!-- </div> -->
+        </div>
+    </div>
+    <!-- Modal de registro de Libro -->
+    <div class="modal fade" id="modalRegistroLibro" tabindex="-1" aria-labelledby="modalRegistroLibroLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalRegistroLibroLabel">Registrar Libro</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <!-- Formulario de registro de Libro -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="Autor" class="form-label">TI:</label>
+                                <input type="text" class="form-control" id="Autor"
+                                    placeholder="Digite el Autor del libro" onfocusout="validarAutor(this)"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Titulo" class="form-label">Titulo:</label>
+                                <input type="text" class="form-control" id="Titulo"
+                                    placeholder="Digite el Titulo del libro">
+                            </div>
+                            <div class="mb-3">
+                                <label for="Genero" class="form-label">Genero:</label>
+                                <input type="text" class="form-control" id="Genero"
+                                    placeholder="Digite el Genero del libro">
+                            </div>
+                            <div class="mb-3">
+                                <label for="ISNB" class="form-label">ISNB:</label>
+                                <input type="text" class="form-control" id="ISNB" placeholder="ISNB">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="EjemplaresDisponibles" class="form-label">Ejemplares Disponibles:</label>
+                                <input type="text" class="form-control" id="EjemplaresDisponibles"
+                                    placeholder="Digite el numero de Ejemplares Disponibles del libro">
+                            </div>
+                            <div class="mb-3">
+                                <label for="EjemplaresOcupados" class="form-label">Ejemplares Ocupados:</label>
+                                <input type="text" class="form-control" id="EjemplaresOcupados" placeholder="EjemplaresOcupados">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success"
+                        onclick="registrarLibro(); limpiar();">Registrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // Función para limpiar el formulario de registro de Libro
+        function limpiarFormulario() {
+            document.getElementById('registroLibroForm').reset();
+        }
+
+        // Función para filtrar Libros
+        function filtrarLibro() {
+            // Aquí puedes agregar la lógica para filtrar los Libros si es necesario
+            alert('Implementa la lógica de filtrado aquí');
+        }
+    </script>
+    <script src="/Front-End/js/Libro.js"></script>
+</body>
+
+</html>

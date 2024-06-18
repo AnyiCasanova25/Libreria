@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Libros</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            text-align: center;
+            width: 500px;
+        }
+        h1 {
+            color: #333;
+        }
+        .search-bar {
+            margin-top: 20px;
+            display: flex;
+        }
+        .search-bar input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px 0 0 4px;
+            outline: none;
+        }
+        .search-bar button {
+            padding: 10px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            border-radius: 0 4px 4px 0;
+        }
+        .search-bar button:hover {
+            background-color: #0056b3;
+        }
+        .book {
+            display: flex;
+            margin-top: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 20px;
+            padding-top: 20px;
+        }
+        .book img {
+            max-width: 100px;
+            margin-right: 20px;
+        }
+        .book-info {
+            flex: 1;
+            text-align: left;
+        }
+        .book-info h2 {
+            margin: 0;
+            font-size: 18px;
+            color: #007BFF;
+        }
+        .book-info p {
+            margin: 10px 0;
+            color: #555;
+        }
+        .rating {
+            color: #FFD700;
+        }
+        .read-now-button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .read-now-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Buscar Libros</h1>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Escribe el título del libro...">
+            <button onclick="searchBooks()">Buscar</button>
+        </div>
+        <div id="results" style="margin-top: 20px;"></div>
+    </div>
+    <script>
+        function searchBooks() {
+            const query = document.getElementById('searchInput').value;
+            const resultsContainer = document.getElementById('results');
+
+            // Aquí puedes añadir la lógica para buscar libros en tu base de datos
+            // Por ahora, vamos a simular algunos resultados de búsqueda
+            const mockResults = [
+                {
+                    title: 'Libro 1: Ejemplo de Libro',
+                    description: 'Descripción del libro 1. Este libro trata sobre...',
+                    image: 'https://via.placeholder.com/100',
+                    rating: 4
+                },
+                {
+                    title: 'Libro 2: Otro Ejemplo',
+                    description: 'Descripción del libro 2. Este libro es acerca de...',
+                    image: 'https://via.placeholder.com/100',
+                    rating: 5
+                },
+                {
+                    title: 'Libro 3: Más Ejemplos de Libros',
+                    description: 'Descripción del libro 3. Este libro discute...',
+                    image: 'https://via.placeholder.com/100',
+                    rating: 3
+                }
+            ];
+
+            resultsContainer.innerHTML = '';
+
+            mockResults.forEach(book => {
+                const bookElement = document.createElement('div');
+                bookElement.className = 'book';
+
+                const bookImage = document.createElement('img');
+                bookImage.src = book.image;
+                bookElement.appendChild(bookImage);
+
+                const bookInfo = document.createElement('div');
+                bookInfo.className = 'book-info';
+
+                const bookTitle = document.createElement('h2');
+                bookTitle.textContent = book.title;
+                bookInfo.appendChild(bookTitle);
+
+                const bookDescription = document.createElement('p');
+                bookDescription.textContent = book.description;
+                bookInfo.appendChild(bookDescription);
+
+                const bookRating = document.createElement('div');
+                bookRating.className = 'rating';
+                bookRating.innerHTML = '⭐'.repeat(book.rating);
+                bookInfo.appendChild(bookRating);
+
+                const readNowButton = document.createElement('button');
+                readNowButton.className = 'read-now-button';
+                readNowButton.textContent = 'Leer ahora';
+                bookInfo.appendChild(readNowButton);
+
+                bookElement.appendChild(bookInfo);
+                resultsContainer.appendChild(bookElement);
+            });
+        }
+    </script>
+</body>
+</html>
