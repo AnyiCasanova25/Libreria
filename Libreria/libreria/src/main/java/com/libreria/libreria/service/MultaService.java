@@ -30,7 +30,7 @@ public class MultaService implements IMultaService {
 
     @Override
     public List<Multa> multaExist(String filtro) {
-        List<Multa> listaMulta = data.multaExist(filtro, filtro, filtro);
+        List<Multa> listaMulta = data.multaExist( filtro, filtro);
         return listaMulta;
     }
 

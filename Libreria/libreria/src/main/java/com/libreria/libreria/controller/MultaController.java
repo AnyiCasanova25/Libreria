@@ -58,9 +58,9 @@ public class MultaController {
         return new ResponseEntity<>(listaMulta, HttpStatus.OK);
     }
 
-    @GetMapping("/busquedafiltro/{filtro}")
-    public ResponseEntity<Object> findFiltro(@PathVariable Date filtro) {
-        var listaMulta = MultaService.filtroFechaMulta(filtro);
+    @GetMapping("/busquedafiltroFecha/{filtro}")
+    public ResponseEntity<Object> findFiltro(@PathVariable Date fechaMulta) {
+        var listaMulta = MultaService.filtroFechaMulta(fechaMulta);
         return new ResponseEntity<>(listaMulta, HttpStatus.OK);
     }
 
