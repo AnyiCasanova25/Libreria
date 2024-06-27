@@ -175,10 +175,10 @@ body > div:first-of-type{
 }
 
 .publicidad{
-    background-color: rgb(112, 33, 33);
+    background-color: rgb(132, 157, 193);
     display: flex;
     justify-content: space-between;
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 .publicidad > article > div > h2{
@@ -191,9 +191,9 @@ testimonio{
     padding: 0px 20%;
 }
 
-testimonio > img {
+/* testimonio > img {
     border-radius: 30%;
-}
+} */
 
 testimonio > p{
     padding-left: 20px;
@@ -213,26 +213,18 @@ article > div:last-child{
 
 indicador{
     display: flex;
-    background-color: rgb(151, 40, 40);
+    background-color: rgb(134, 176, 224);
     height: 200px;
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: white;
-}
-
-slide{
-    background-image: url("./img/coca-cola10.jpg");
-    height: 400px;
-    display: block;
-    background-size: cover;
-    background-position: center;
+    color: rgb(0, 0, 0);
 }
 
 info{
     display: flex;
     padding: 5% 0px;
-    background-color: brown;
+    background-color:rgb(141, 174, 223);
 }
 
 info > div{
@@ -247,22 +239,22 @@ info > div:last-child{
 }
 
 info > div > section{
-    background-color: rgb(129, 18, 18);
+    background-color: rgb(133, 159, 220);
     width: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding-left: 5%;
-    color: white;
+    color: rgb(0, 0, 0);
     text-align: center;
 }
 
 indicadordos{
     display: flex;
-    background-color: rgb(112, 33, 33);
+    background-color: rgb(117, 159, 213);
     height: 300px;
     align-items: center;
     text-align: center;   
-    color: white; 
-    justify-content: space-around;
+    color: rgb(0, 0, 0); 
+    justify-content: space-between;
 }
