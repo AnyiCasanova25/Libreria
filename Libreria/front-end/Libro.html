@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="/front-end/img/img3.jfif">
-    <title>Libro</title>
+    <title>Usuario</title>
+    <link rel="stylesheet" href="/Libreria/front-end/styleflexbox.css">
     <link rel="stylesheet" href="/Front-end/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -18,131 +18,132 @@
 </head>
 
 <body>
-    <div class="container" style="margin-top: 25px;">
-        <!-- Menú en la parte superior -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/front-end/inicio.html">
-                <img src="/front-end/img/img5.jpg" class="img-logo" alt="Logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/front-end/Libro.html">Libros</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/front-end/Usuario.html">Usuario</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
 
-        <!-- Contenido principal -->
-        <div class="mt-4">
-            <div style="display: flex;">
-                <h2>Libros</h2>
-            </div>
-            <div class="row">
-                <div class="col col-5">
-                    <input type="text" class="form-control" placeholder="Recipient's username"
-                        aria-label="Recipient's username" aria-describedby="button-addon2">
-                </div>
-                <div class="col col-3">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Buscar</button>
-                </div>
-                <div class="col col-4">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#modalRegistroLibro">
-                        Registrar Libro
-                    </button>
-                    <button type="button" class="btn btn-danger ms-2" onclick="limpiarFormulario()">Limpiar</button>
-                </div>
-            </div>
-
-            <!-- Tabla -->
-            <br>
-            <table class="table table-striped" style="margin-top: 25px;">
-                <tr>
-                    <th>Id Libro</th>
-                    <th>Autor </th>
-                    <th>Titulo </th>
-                    <th>Genero</th>
-                    <th>ISNB</th>
-                    <th>Ejemplares Disponibles</th>
-                    <th>Ejemplares Ocupados</th>
-                </tr>
-                <tbody id="cuerpoTabla"></tbody>
-            </table>
+    <nav class="nav_menu">
+        <div>
+            <li>
+                <a href="./inicio.html">Casanova's Library</a>
+            </li>
         </div>
-    </div>
-
-    <!-- Modal de registro de Libro -->
-    <div class="modal fade" id="modalRegistroLibro" tabindex="-1" aria-labelledby="modalRegistroLibroLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalRegistroLibroLabel">Registrar Libro</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="Autor" class="form-label">TI:</label>
-                                <input type="text" class="form-control" id="Autor"
-                                    placeholder="Digite el Autor del libro" onfocusout="validarAutor(this)" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="Titulo" class="form-label">Titulo:</label>
-                                <input type="text" class="form-control" id="Titulo"
-                                    placeholder="Digite el Titulo del libro">
-                            </div>
-                            <div class="mb-3">
-                                <label for="Genero" class="form-label">Genero:</label>
-                                <input type="text" class="form-control" id="Genero"
-                                    placeholder="Digite el Genero del libro">
-                            </div>
-                            <div class="mb-3">
-                                <label for="ISNB" class="form-label">ISNB:</label>
-                                <input type="text" class="form-control" id="ISNB" placeholder="ISNB">
-                            </div>
+        <!-- <div><img src="/Libreria/front-end/img/logoCasanova.PNG" width="125px" style="margin: 10px ;"></div> -->
+        <div>
+            <ul class="Menu">
+                <li>
+                    <a href="./inicio.html">Inicio</a>
+                </li>
+                <li>
+                    <a href="./Libro.html">Libro</a>
+                </li>
+                <li>
+                    <a href="./Usuario.html">Usuario</a>
+                </li>
+                <li>
+                    <a href="#">Prestamo</a>
+                </li>
+                <li>
+                    <a href="#">Multa</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div onload="listarUsuario()">
+        <div class="centradooor">
+            <div class="container col">
+                <br>
+                <div class="row botonRegistrar">
+                    <!-- Tabla para listar Usuarios -->
+                    <div class="col-12">
+                        <div class="d-flex justify-content-end align-items-center">
+                            <h2 class="col-3 mb-0">Listado de Usuarios</h2>
+                            <button type="button" class="btn btn-dark col-2 mb-1" data-bs-toggle="modal"
+                                onclick="registrarUsuarioBandera=true; limpiar();" data-bs-target="#exampleModal">
+                                Registrar Usuario
+                            </button>
+                            <a class="btn btn-success col-0.5 mb-1" style="margin-left: 4px;"
+                                href="/Libreria/front-end/inicio.html"><i class="fa-sharp fa-solid fa-house"></i></a>
                         </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="EjemplaresDisponibles" class="form-label">Ejemplares Disponibles:</label>
-                                <input type="text" class="form-control" id="EjemplaresDisponibles"
-                                    placeholder="Digite el numero de Ejemplares Disponibles del libro">
-                            </div>
-                            <div class="mb-3">
-                                <label for="EjemplaresOcupados" class="form-label">Ejemplares Ocupados:</label>
-                                <input type="text" class="form-control" id="EjemplaresOcupados"
-                                    placeholder="EjemplaresOcupados">
+
+                        <div class="input-group mb-3">
+                            <input type="text" id="texto" class="form-control" placeholder="Buscar..."
+                                aria-label="Buscar" aria-describedby="button-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit" id="button-addon2"
+                                    onclick="return buscarUsuarioPorFiltro(document.getElementById('texto').value)">
+                                    <i class="fas fa-search"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-success"
-                        onclick="registrarLibro(); limpiar();">Registrar</button>
+                    <br>
+                    <!-- Modal -->
+                    <div class="modal fade " id="exampleModal" data-bs-backdrop="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog fondomodaldialog">
+                            <div class="modal-content col">
+                                <div class="  modal-header">
+                                    <button type="button" class="col-1 btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close" id="X"></button>
+                                    <h1 class="modal-title fs-5 col-11" id="exampleModalLabel"
+                                        style="font-family:Georgia, 'Times New Roman', Times, serif; text-align: center;">
+                                        Registro Usuario
+                                    </h1>
+                                </div>
+                                <div class="modal-body ">
+                                    <div>
+                                        <div class="centradoo">
+                                            <div class="container col">
+                                                <br>
+                                                <form class="row table-hover needs-validation">
+
+                                                    <div class="col col-xl-6 col-12 table-hover">
+                                                        <label for="">Nombre</label>
+                                                        <input type="text" id="nombre" class="form-control"
+                                                            onfocusout="validarNombre(this)" required>
+                                                    </div>
+
+                                                    <div class="col col-xl-6 col-12 table-hover">
+                                                        <label for="">Correo</label>
+                                                        <input type="text" id="correo" class="form-control">
+                                                    </div>
+
+                                                    <div class="col col-xl-6 col-12">
+                                                        <label for="">Tipo de Usuario</label>
+                                                        <select type="text" id="tipoUsuario" class="form-control"
+                                                            onfocusout="validarTipoUsuario(this)" required>
+                                                            <option value="Lector">Lector</option>
+                                                            <option value="Bibliotecario">Bibliotecario</option>
+                                                            <option value="Administrador">Administrador</option>
+                                                        </select>
+                                                    </div>
+                                                </form>
+                                                <br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer ">
+                                    <button type="button" class="btn btn-dark"
+                                        onclick="registrarUsuario(); limpiar();">Registrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-hover table-striped">
+                        <div class="colorTabla">
+                            <tr>
+                                <th class="colorTabla">Nombre</th>
+                                <th class="colorTabla">Correo</th>
+                                <th class="colorTabla">Tipo de Usuario</th>
+                                <th class="colorTabla">Opciones</th>
+                            </tr>
+                        </div>
+                        <tbody id="cuerpoTabla"></tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-        function limpiarFormulario() {
-            document.getElementById('registroLibroForm').reset();
-        }
-
-        function filtrarLibro() {
-            alert('Implementa la lógica de filtrado aquí');
-        }
-    </script>
-    <script src="/Front-End/js/Libro.js"></script>
+    <script src="/Libreria/front-end/js/Usuario.js"></script>
 </body>
 
 </html>
