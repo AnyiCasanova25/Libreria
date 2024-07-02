@@ -69,9 +69,9 @@ var registrarUsuarioBandera = true;
 
 // Función para registrar un médico
 function registrarUsuario() {
-    var Nombre = document.getElementById("Nombre");
-    var Correo = document.getElementById("Correo");
-    var TipoUsuario = document.getElementById("TipoUsuario");
+    var Nombre = document.getElementById("nombre");
+    var Correo = document.getElementById("correo");
+    var TipoUsuario = document.getElementById("tipoUsuario");
 
     // Verificar si algún campo obligatorio está vacío
     if (!validarNombre(Nombre) ||
@@ -148,10 +148,12 @@ function registrarUsuario() {
 
 
 // Función primerNombre
+function validarCampos() {
+    var nombre = document.getElementById("nombre");
+    var correo = document.getElementById("correo");
+    var tipoUsuario = document.getElementById("tipoUsuario");
 
-function validarCamposNombre() {
-    var Nombre = document.getElementById("Nombre");
-    return validarPrimerNombre(Nombre);
+    return validarNombre(nombre) && validarCorreo(correo) && validarTipoUsuario(tipoUsuario);
 }
 
 function validarNombre(cuadroNumero) {
@@ -173,11 +175,6 @@ function validarNombre(cuadroNumero) {
 
 // Función primerApellido
 
-function validarCamposCorreo() {
-    var Correo = document.getElementById("Correo");
-    return validarCorreo(Correo);
-}
-
 function validarCorreo(cuadroNumero) {
     var valor = cuadroNumero.value;
     var valido = true;
@@ -196,11 +193,6 @@ function validarCorreo(cuadroNumero) {
 }
 
 // Función Telefono
-
-function validarTipoUsuario() {
-    var TipoUsuario = document.getElementById("TipoUsuario");
-    return validarTipoUsuario(TipoUsuario);
-}
 
 function validarTipoUsuario(cuadroNumero) {
     var valor = cuadroNumero.value;
@@ -221,12 +213,12 @@ function validarTipoUsuario(cuadroNumero) {
 
 // Función para limpiar campos del formulario
 function limpiar() {
-    document.getElementById("Nombre").value = "";
-    document.getElementById("Nombre").className = "form-control";
-    document.getElementById("Correo").value = "";
-    document.getElementById("Correo").className = "form-control";
-    document.getElementById("TipoUsuario").value = "";
-    document.getElementById("TipoUsuario").value = "";
+    document.getElementById("nombre").value = "";
+    document.getElementById("nombre").className = "form-control";
+    document.getElementById("correo").value = "";
+    document.getElementById("correo").className = "form-control";
+    document.getElementById("tipoUsuario").value = "";
+    document.getElementById("tipoUsuario").value = "";
 }
 
 var idUsuario = "";
@@ -239,9 +231,9 @@ $(document).on("click", ".editar", function () {
         url: url + idUsuario,
         type: "GET",
         success: function (Usuario) {
-            document.getElementById("Nombre").value = Usuario.Nombre;
-            document.getElementById("Correo").value = Usuario.Correo;
-            document.getElementById("TipoUsuario").value = Usuario.TipoUsuario;
+            document.getElementById("nombre").value = Usuario.Nombre;
+            document.getElementById("correo").value = Usuario.Correo;
+            document.getElementById("tipoUsuario").value = Usuario.TipoUsuario;
             $('#exampleModal').modal('show');
         },
         error: function (error) {

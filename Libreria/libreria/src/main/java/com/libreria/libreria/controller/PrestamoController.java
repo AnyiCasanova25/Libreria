@@ -56,6 +56,12 @@ public class PrestamoController {
         return new ResponseEntity<>(listaPrestamo, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> findOne(@PathVariable String id) {
+        var Prestamo = PrestamoService.findOne(id);
+        return new ResponseEntity<>(Prestamo, HttpStatus.OK);
+    }
+
     @DeleteMapping("/eliminarPermanente/{id}")
     public ResponseEntity<Object> deleteForever(@PathVariable String id) {
         PrestamoService.deleteForever(id);

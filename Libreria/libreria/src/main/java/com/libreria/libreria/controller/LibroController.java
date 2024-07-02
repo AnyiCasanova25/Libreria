@@ -71,6 +71,12 @@ public class LibroController {
         return new ResponseEntity<>(listaLibro, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> findOne(@PathVariable String id) {
+        var Libro = LibroService.findOne(id);
+        return new ResponseEntity<>(Libro,HttpStatus.OK);
+    }
+
     @DeleteMapping("/eliminarPermanente/{id}")
     public ResponseEntity<Object> deleteForever(@PathVariable String id) {
         LibroService.deleteForever(id);

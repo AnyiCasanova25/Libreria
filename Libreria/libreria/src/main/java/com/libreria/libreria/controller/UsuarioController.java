@@ -55,6 +55,12 @@ public class UsuarioController {
         return new ResponseEntity<>(listaUsuario, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> findOne(@PathVariable String id) {
+        var Usuario = UsuarioService.findOne(id);
+        return new ResponseEntity<>(Usuario,HttpStatus.OK);
+    }
+
     @DeleteMapping("/eliminarPermanente/{id}")
     public ResponseEntity<Object> deleteForever(@PathVariable String id) {
         UsuarioService.deleteForever(id);

@@ -64,6 +64,12 @@ public class MultaController {
         return new ResponseEntity<>(listaMulta, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> findOne(@PathVariable String id) {
+        var Multa = MultaService.findOne(id);
+        return new ResponseEntity<>(Multa,HttpStatus.OK);
+    }
+
     @DeleteMapping("/eliminarPermanente/{id}")
     public ResponseEntity<Object> deleteForever(@PathVariable String id) {
         MultaService.deleteForever(id);
