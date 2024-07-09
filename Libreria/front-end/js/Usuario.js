@@ -132,7 +132,7 @@ function registrarUsuario() {
             error: function (xhr, status, error) {
                 Swal.fire({
                     title: "Error",
-                    text: "¡El número de documento ya se encuentra registrado!",
+                    text: "¡El usuario ya se encuentra registrado!",
                     icon: "error"
                 });
             }

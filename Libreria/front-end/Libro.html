@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuario</title>
+    <title>Libro</title>
     <link rel="stylesheet" href="/Libreria/front-end/styleflexbox.css">
     <link rel="stylesheet" href="/Front-end/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -38,26 +38,26 @@
                     <a href="./Usuario.html">Usuario</a>
                 </li>
                 <li>
-                    <a href="#">Prestamo</a>
+                    <a href="./Prestamo.html">Prestamo</a>
                 </li>
                 <li>
-                    <a href="#">Multa</a>
+                    <a href="./Multa.html">Multa</a>
                 </li>
             </ul>
         </div>
     </nav>
-    <div onload="listarUsuario()">
+    <div onload="listarLibro()">
         <div class="centradooor">
             <div class="container col">
                 <br>
                 <div class="row botonRegistrar">
-                    <!-- Tabla para listar Usuarios -->
+                    <!-- Tabla para listar Libros -->
                     <div class="col-12">
                         <div class="d-flex justify-content-end align-items-center">
-                            <h2 class="col-3 mb-0">Listado de Usuarios</h2>
+                            <h2 class="col-3 mb-0">Listado de Libros</h2>
                             <button type="button" class="btn btn-dark col-2 mb-1" data-bs-toggle="modal"
-                                onclick="registrarUsuarioBandera=true; limpiar();" data-bs-target="#exampleModal">
-                                Registrar Usuario
+                                onclick="registrarLibroBandera=true; limpiar();" data-bs-target="#exampleModal">
+                                Registrar Libro
                             </button>
                             <a class="btn btn-success col-0.5 mb-1" style="margin-left: 4px;"
                                 href="/Libreria/front-end/inicio.html"><i class="fa-sharp fa-solid fa-house"></i></a>
@@ -68,7 +68,7 @@
                                 aria-label="Buscar" aria-describedby="button-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" type="submit" id="button-addon2"
-                                    onclick="return buscarUsuarioPorFiltro(document.getElementById('texto').value)">
+                                    onclick="return buscarLibroPorFiltro(document.getElementById('texto').value)">
                                     <i class="fas fa-search"></i>
                                 </button>
                             </div>
@@ -85,7 +85,7 @@
                                         aria-label="Close" id="X"></button>
                                     <h1 class="modal-title fs-5 col-11" id="exampleModalLabel"
                                         style="font-family:Georgia, 'Times New Roman', Times, serif; text-align: center;">
-                                        Registro Usuario
+                                        Registro Libro
                                     </h1>
                                 </div>
                                 <div class="modal-body ">
@@ -96,24 +96,39 @@
                                                 <form class="row table-hover needs-validation">
 
                                                     <div class="col col-xl-6 col-12 table-hover">
-                                                        <label for="">Nombre</label>
-                                                        <input type="text" id="nombre" class="form-control"
-                                                            onfocusout="validarNombre(this)" required>
+                                                        <label for="">Titulo</label>
+                                                        <input type="text" id="titulo" class="form-control"
+                                                            onfocusout="validarTitulo(this)" required>
                                                     </div>
 
                                                     <div class="col col-xl-6 col-12 table-hover">
-                                                        <label for="">Correo</label>
-                                                        <input type="text" id="correo" class="form-control">
+                                                        <label for="">Autor</label>
+                                                        <input type="text" id="autor" class="form-control"
+                                                            onfocusout="validarAutor(this)" required>
                                                     </div>
 
-                                                    <div class="col col-xl-6 col-12">
-                                                        <label for="">Tipo de Usuario</label>
-                                                        <select type="text" id="tipoUsuario" class="form-control"
-                                                            onfocusout="validarTipoUsuario(this)" required>
-                                                            <option value="Lector">Lector</option>
-                                                            <option value="Bibliotecario">Bibliotecario</option>
-                                                            <option value="Administrador">Administrador</option>
-                                                        </select>
+                                                    <div class="col col-xl-6 col-12 table-hover">
+                                                        <label for="">ISBN</label>
+                                                        <input type="text" id="isnb" class="form-control"
+                                                            onfocusout="validarISBN(this)" required>
+                                                    </div>
+
+                                                    <div class="col col-xl-6 col-12 table-hover">
+                                                        <label for="">Genero</label>
+                                                        <input type="text" id="genero" class="form-control"
+                                                            onfocusout="validarGenero(this)" required>
+                                                    </div>
+                                                    
+                                                    <div class="col col-xl-6 col-12 table-hover">
+                                                        <label for="">Ejemplares Disponibles</label>
+                                                        <input type="text" id="ejemplaresDisponibles" class="form-control"
+                                                            onfocusout="validarEjemplaresDisponibles(this)" required>
+                                                    </div>
+
+                                                    <div class="col col-xl-6 col-12 table-hover">
+                                                        <label for="">Ejemplares Ocupados</label>
+                                                        <input type="text" id="ejemplaresOcupados" class="form-control"
+                                                            onfocusout="validarEjemplaresOcupados(this)" required>
                                                     </div>
                                                 </form>
                                                 <br>
@@ -123,7 +138,7 @@
                                 </div>
                                 <div class="modal-footer ">
                                     <button type="button" class="btn btn-dark"
-                                        onclick="registrarUsuario(); limpiar();">Registrar</button>
+                                        onclick="registrarLibro(); limpiar();">Registrar</button>
                                 </div>
                             </div>
                         </div>
@@ -131,10 +146,12 @@
                     <table class="table table-hover table-striped">
                         <div class="colorTabla">
                             <tr>
-                                <th class="colorTabla">Nombre</th>
-                                <th class="colorTabla">Correo</th>
-                                <th class="colorTabla">Tipo de Usuario</th>
-                                <th class="colorTabla">Opciones</th>
+                                <th class="colorTabla">Titulo</th>
+                                <th class="colorTabla">Autor</th>
+                                <th class="colorTabla">ISBN</th>
+                                <th class="colorTabla">Genero</th>
+                                <th class="colorTabla">Ejemplares Disponibles</th>
+                                <th class="colorTabla">Ejemplares Ocupados</th>
                             </tr>
                         </div>
                         <tbody id="cuerpoTabla"></tbody>
@@ -143,7 +160,7 @@
             </div>
         </div>
     </div>
-    <script src="/Libreria/front-end/js/Usuario.js"></script>
+    <script src="/Libreria/front-end/js/Libro.js"></script>
 </body>
 
 </html>

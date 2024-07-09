@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuario</title>
+    <title>Multa</title>
     <link rel="stylesheet" href="/Libreria/front-end/styleflexbox.css">
     <link rel="stylesheet" href="/Front-end/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -38,15 +38,15 @@
                     <a href="./Usuario.html">Usuario</a>
                 </li>
                 <li>
-                    <a href="#">Prestamo</a>
+                    <a href="./Prestamo.html">Prestamo</a>
                 </li>
                 <li>
-                    <a href="#">Multa</a>
+                    <a href="./Multa.html">Multa</a>
                 </li>
             </ul>
         </div>
     </nav>
-    <div onload="listarUsuario()">
+    <div onload="listarPrestamo()">
         <div class="centradooor">
             <div class="container col">
                 <br>
@@ -54,10 +54,10 @@
                     <!-- Tabla para listar Usuarios -->
                     <div class="col-12">
                         <div class="d-flex justify-content-end align-items-center">
-                            <h2 class="col-3 mb-0">Listado de Usuarios</h2>
+                            <h2 class="col-3 mb-0">Listado de Prestamos</h2>
                             <button type="button" class="btn btn-dark col-2 mb-1" data-bs-toggle="modal"
-                                onclick="registrarUsuarioBandera=true; limpiar();" data-bs-target="#exampleModal">
-                                Registrar Usuario
+                                onclick="registrarPrestamoBandera=true; limpiar();" data-bs-target="#exampleModal">
+                                Registrar Prestamo
                             </button>
                             <a class="btn btn-success col-0.5 mb-1" style="margin-left: 4px;"
                                 href="/Libreria/front-end/inicio.html"><i class="fa-sharp fa-solid fa-house"></i></a>
@@ -68,7 +68,7 @@
                                 aria-label="Buscar" aria-describedby="button-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" type="submit" id="button-addon2"
-                                    onclick="return buscarUsuarioPorFiltro(document.getElementById('texto').value)">
+                                    onclick="return buscarPrestamoPorFiltro(document.getElementById('texto').value)">
                                     <i class="fas fa-search"></i>
                                 </button>
                             </div>
@@ -85,7 +85,7 @@
                                         aria-label="Close" id="X"></button>
                                     <h1 class="modal-title fs-5 col-11" id="exampleModalLabel"
                                         style="font-family:Georgia, 'Times New Roman', Times, serif; text-align: center;">
-                                        Registro Usuario
+                                        Registro Prestamo
                                     </h1>
                                 </div>
                                 <div class="modal-body ">

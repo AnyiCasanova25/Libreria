@@ -1,9 +1,9 @@
-function buscarUsuarioPorFiltro(filtro) {
+function buscarLibroPorFiltro(filtro) {
     if (filtro=== '') {
-        listarUsuario(); // Mostrar todos los médicos si estado es vacío
+        listarLibro(); // Mostrar todos los médicos si estado es vacío
     }else{
         $.ajax({
-            url: "http://localhost:8080/api/v1/Usuario/busquedafiltro/" + filtro,
+            url: "http://localhost:8080/api/v1/Libro/busquedafiltro/" + filtro,
             type: "GET",
             success: function (result) {
                 var cuerpoTabla = document.getElementById("cuerpoTabla");
@@ -12,13 +12,16 @@ function buscarUsuarioPorFiltro(filtro) {
                 for (var i = 0; i < result.length; i++) {
                     var trRegistro = document.createElement("tr");
                     trRegistro.innerHTML = `
-                        <td>${result[i]["idUsuario"]}</td>
-                        <td class="text-center align-middle">${result[i]["Nombre"]}</td>
-                        <td class="text-center align-middle">${result[i]["Correo"]}</td>
-                        <td class="text-center align-middle">${result[i]["TipoUsuario"]}</td>
+                        <td>${result[i]["idLibro"]}</td>
+                        <td class="text-center align-middle">${result[i]["Autor"]}</td>
+                        <td class="text-center align-middle">${result[i]["ISNB"]}</td>
+                        <td class="text-center align-middle">${result[i]["Genero"]}</td>
+                        <td class="text-center align-middle">${result[i]["Titulo"]}</td>
+                        <td class="text-center align-middle">${result[i]["EjemplaresDisponibles"]}</td>
+                        <td class="text-center align-middle">${result[i]["EjemplaresOcupados"]}</td>
                         <td class="text-center align-middle">
-                            <i class="fas fa-edit editar"  onclick="registrarUsuarioBandera=false;" data-id="${result[i]["idUsuario"]}"></i>
-                            <i class="fas fa-trash-alt eliminar" data-id="${result[i]["idUsuario"]}"></i>
+                            <i class="fas fa-edit editar"  onclick="registrarLibroBandera=false;" data-id="${result[i]["idLibro"]}"></i>
+                            <i class="fas fa-trash-alt eliminar" data-id="${result[i]["idLibro"]}"></i>
                         </td>
                     `;
                     cuerpoTabla.appendChild(trRegistro);
@@ -33,10 +36,10 @@ function buscarUsuarioPorFiltro(filtro) {
 }
 
 // URL de la API
-var url = "http://localhost:8080/api/v1/Usuario/";
+var url = "http://localhost:8080/api/v1/Libro/";
 
 // Función para listar los médicos
-function listarUsuario() {
+function listarLibro() {
     $.ajax({
         url: url,
         type: "GET",
@@ -47,13 +50,16 @@ function listarUsuario() {
             for (var i = 0; i < result.length; i++) {
                 var trRegistro = document.createElement("tr");
                 trRegistro.innerHTML = `
-                    <td>${result[i]["idUsuario"]}</td>
-                    <td class="text-center align-middle">${result[i]["nombre"]}</td>
-                    <td class="text-center align-middle">${result[i]["correo"]}</td>
-                    <td class="text-center align-middle">${result[i]["tipoUsuario"]}</td>
+                    <td>${result[i]["idLibro"]}</td>
+                    <td class="text-center align-middle">${result[i]["autor"]}</td>
+                    <td class="text-center align-middle">${result[i]["isnb"]}</td>
+                    <td class="text-center align-middle">${result[i]["genero"]}</td>
+                    <td class="text-center align-middle">${result[i]["titulo"]}</td>
+                    <td class="text-center align-middle">${result[i]["ejemplaresDisponibles"]}</td>
+                    <td class="text-center align-middle">${result[i]["ejemplaresOcupados"]}</td>
                     <td class="text-center align-middle">
-                        <i class="fas fa-edit editar"  onclick="registrarUsuarioBandera=false;" data-id="${result[i]["idUsuario"]}"></i>
-                        <i class="fas fa-trash-alt eliminar" data-id="${result[i]["idUsuario"]}"></i>
+                        <i class="fas fa-edit editar"  onclick="registrarLibroBandera=false;" data-id="${result[i]["idLibro"]}"></i>
+                        <i class="fas fa-trash-alt eliminar" data-id="${result[i]["idLibro"]}"></i>
                     </td>
                 `;
                 cuerpoTabla.appendChild(trRegistro);
@@ -65,18 +71,24 @@ function listarUsuario() {
     });
 }
 
-var registrarUsuarioBandera = true;
+var registrarLibroBandera = true;
 
 // Función para registrar un médico
-function registrarUsuario() {
-    var Nombre = document.getElementById("nombre");
-    var Correo = document.getElementById("correo");
-    var TipoUsuario = document.getElementById("tipoUsuario");
+function registrarLibro() {
+    var Autor = document.getElementById("autor");
+    var ISNB = document.getElementById("isnb");
+    var Genero = document.getElementById("genero");
+    var Titulo = document.getElementById("titulo");
+    var EjemplaresDisponibles = document.getElementById("ejemplaresDisponibles");
+    var EjemplaresOcupados = document.getElementById("ejemplaresOcupados");
 
     // Verificar si algún campo obligatorio está vacío
-    if (!validarNombre(Nombre) ||
-        !validarCorreo(Correo) ||
-        !validarTipoUsuario(TipoUsuario)) {
+    if (!validarAutor(Autor) ||
+        !validarISNB(ISNB) ||
+        !validarGenero(Genero) ||
+        !validarTitulo(Titulo) ||
+        !validarEjemplaresDisponibles(EjemplaresDisponibles) ||
+        !validarEjemplaresOcupados(EjemplaresOcupados)) {
         // Mostrar una alerta indicando que todos los campos son obligatorios
         Swal.fire({
             title: "¡Error!",
@@ -87,15 +99,18 @@ function registrarUsuario() {
     }
 
     var forData = {
-        "Nombre": Nombre.value,
-        "Correo": Correo.value,
-        "TipoUsuario": TipoUsuario.value,
+        "Autor": Autor.value,
+        "ISNB": ISNB.value,
+        "Genero": Genero.value,
+        "Titulo": Titulo.value,
+        "EjemplaresDisponibles": EjemplaresDisponibles.value,
+        "EjemplaresOcupados": EjemplaresOcupados.value,
     };
 
     var metodo = "";
     var urlLocal = "";
     var textoimprimir = "";
-    if (registrarUsuarioBandera == true) {
+    if (registrarLibroBandera == true) {
         metodo = "POST";
         urlLocal = url;
         textoimprimir = Swal.fire({
@@ -105,7 +120,7 @@ function registrarUsuario() {
         });
     } else {
         metodo = "PUT";
-        urlLocal = url + idUsuario;
+        urlLocal = url + idLibro;
         textoimprimir = Swal.fire({
             title: "LISTO",
             text: "Felicidades, Guardado con éxito",
@@ -126,13 +141,13 @@ function registrarUsuario() {
                 }).then(function () {
                     // Aquí puedes agregar más acciones después del registro exitoso
                     $('#exampleModal').modal('hide');
-                    listarUsuario();
+                    listarLibro();
                 });
             },
             error: function (xhr, status, error) {
                 Swal.fire({
                     title: "Error",
-                    text: "¡El número de documento ya se encuentra registrado!",
+                    text: "¡El Libro ya se encuentra registrado!",
                     icon: "error"
                 });
             }
@@ -149,14 +164,17 @@ function registrarUsuario() {
 
 // Función primerNombre
 function validarCampos() {
-    var nombre = document.getElementById("nombre");
-    var correo = document.getElementById("correo");
-    var tipoUsuario = document.getElementById("tipoUsuario");
+    var autor = document.getElementById("autor");
+    var isnb = document.getElementById("isnb");
+    var genero = document.getElementById("genero");
+    var titulo = document.getElementById("titulo");
+    var ejemplaresDisponibles = document.getElementById("ejemplaresDisponibles");
+    var ejemplaresOcupados = document.getElementById("ejemplaresOcupados");
 
-    return validarNombre(nombre) && validarCorreo(correo) && validarTipoUsuario(tipoUsuario);
+    return validarAutor(autor) && validarISNB(isnb) && validarGenero(genero) && validarTitulo(titulo) && validarEjemplaresDisponibles(ejemplaresDisponibles) && validarEjemplaresOcupados(ejemplaresOcupados);
 }
 
-function validarNombre(cuadroNumero) {
+function validarAutor(cuadroNumero) {
     var valor = cuadroNumero.value;
     var valido = true;
 
@@ -173,9 +191,7 @@ function validarNombre(cuadroNumero) {
     return valido;
 }
 
-// Función primerApellido
-
-function validarCorreo(cuadroNumero) {
+function validarISNB(cuadroNumero) {
     var valor = cuadroNumero.value;
     var valido = true;
 
@@ -192,13 +208,11 @@ function validarCorreo(cuadroNumero) {
     return valido;
 }
 
-// Función Telefono
-
-function validarTipoUsuario(cuadroNumero) {
+function validarGenero(cuadroNumero) {
     var valor = cuadroNumero.value;
     var valido = true;
 
-    if (valor.length < 1 || valor.length > 15) {
+    if (valor.length < 1 || valor.length > 100) {
         valido = false;
     }
 
@@ -210,34 +224,96 @@ function validarTipoUsuario(cuadroNumero) {
 
     return valido;
 }
+
+function validarTitulo(cuadroNumero) {
+    var valor = cuadroNumero.value;
+    var valido = true;
+
+    if (valor.length < 1 || valor.length > 100) {
+        valido = false;
+    }
+
+    if (valido) {
+        cuadroNumero.className = "form-control is-valid";
+    } else {
+        cuadroNumero.className = "form-control is-invalid";
+    }
+
+    return valido;
+}
+
+function validarEjemplaresDisponibles(cuadroNumero) {
+    var valor = cuadroNumero.value;
+    var valido = true;
+
+    if (valor.length < 1 || valor.length > 100) {
+        valido = false;
+    }
+
+    if (valido) {
+        cuadroNumero.className = "form-control is-valid";
+    } else {
+        cuadroNumero.className = "form-control is-invalid";
+    }
+
+    return valido;
+}
+
+function validarEjemplaresOcupados(cuadroNumero) {
+    var valor = cuadroNumero.value;
+    var valido = true;
+
+    if (valor.length < 1 || valor.length > 100) {
+        valido = false;
+    }
+
+    if (valido) {
+        cuadroNumero.className = "form-control is-valid";
+    } else {
+        cuadroNumero.className = "form-control is-invalid";
+    }
+
+    return valido;
+}
+
+
 
 // Función para limpiar campos del formulario
 function limpiar() {
-    document.getElementById("nombre").value = "";
-    document.getElementById("nombre").className = "form-control";
-    document.getElementById("correo").value = "";
-    document.getElementById("correo").className = "form-control";
-    document.getElementById("tipoUsuario").value = "";
-    document.getElementById("tipoUsuario").value = "";
+    document.getElementById("autor").value = "";
+    document.getElementById("autor").className = "form-control";
+    document.getElementById("isnb").value = "";
+    document.getElementById("isnb").className = "form-control";
+    document.getElementById("genero").value = "";
+    document.getElementById("genero").className = "form-control";
+    document.getElementById("titulo").value = "";
+    document.getElementById("titulo").className = "form-control";
+    document.getElementById("ejemplaresDisponibles").value = "";
+    document.getElementById("ejemplaresDisponibles").className = "form-control";
+    document.getElementById("ejemplaresOcupados").value = "";
+    document.getElementById("ejemplaresOcupados").className = "form-control";
 }
 
-var idUsuario = "";
+var idLibro = "";
 // Asociar eventos de clic a los iconos dentro de la tabla
 $(document).on("click", ".editar", function () {
     limpiar();
-    idUsuario = $(this).data("id");
+    idLibro = $(this).data("id");
 
     $.ajax({
-        url: url + idUsuario,
+        url: url + idLibro,
         type: "GET",
-        success: function (Usuario) {
-            document.getElementById("nombre").value = Usuario.Nombre;
-            document.getElementById("correo").value = Usuario.Correo;
-            document.getElementById("tipoUsuario").value = Usuario.TipoUsuario;
+        success: function (Libro) {
+            document.getElementById("autor").value = Libro.Autor;
+            document.getElementById("isnb").value = Libro.ISNB;
+            document.getElementById("genero").value = Libro.Genero;
+            document.getElementById("titulo").value = Libro.Titulo;
+            document.getElementById("ejemplaresDisponibles").value = Libro.EjemplaresDisponibles;
+            document.getElementById("ejemplaresOcupados").value = Libro.EjemplaresOcupados;
             $('#exampleModal').modal('show');
         },
         error: function (error) {
-            alert("Error al obtener los datos del Usuario: " + error.statusText);
+            alert("Error al obtener los datos del Libro: " + error.statusText);
         }
     });
 });
@@ -264,22 +340,22 @@ $(document).on("click", ".editar", function () {
 
 $(document).on("click", ".eliminar", function () {
     // Obtener el ID del médico desde el atributo data del elemento clicado
-    var idUsuario = $(this).data("id");
+    var idLibro = $(this).data("id");
 
     // Mostrar un cuadro de diálogo para confirmar la eliminación
     Swal.fire({
         title: '¿Estás seguro?',
-        text: "¿Deseas eliminar este usuario?",
+        text: "¿Deseas eliminar este Libro?",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Eliminar'
     }).then((result) => {
-        // Si el usuario confirma la eliminación, proceder con la solicitud AJAX
+        // Si el Libro confirma la eliminación, proceder con la solicitud AJAX
         if (result.isConfirmed) {
             $.ajax({
-                url: url + "eliminarPermanente/" + idUsuario,
+                url: url + "eliminarPermanente/" + idLibro,
                 type: "DELETE",
                 success: function (eliminarPermanente) {
                     // Mostrar un mensaje de éxito
@@ -291,7 +367,7 @@ $(document).on("click", ".eliminar", function () {
                         timer: 1500
                     });
                     // Actualizar la lista de usuarios después de eliminar
-                    listarUsuario();
+                    listarLibro();
                 },
                 error: function (xhr, status, error) {
                     // Manejo de errores
@@ -311,9 +387,9 @@ $(document).on("click", ".eliminar", function () {
 
 // Llamar a la función para listar médicos al cargar la página
 $(document).ready(function () {
-    listarUsuario();
+    listarLibro();
 });
-function actualizarlistarUsuario() {
-    listarUsuario();
+function actualizarlistarLibro() {
+    listarLibro();
 }
 
