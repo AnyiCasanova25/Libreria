@@ -14,7 +14,7 @@ function buscarLibroPorFiltro(filtro) {
                     trRegistro.innerHTML = `
                         <td>${result[i]["idLibro"]}</td>
                         <td class="text-center align-middle">${result[i]["Autor"]}</td>
-                        <td class="text-center align-middle">${result[i]["ISNB"]}</td>
+                        <td class="text-center align-middle">${result[i]["ISBN"]}</td>
                         <td class="text-center align-middle">${result[i]["Genero"]}</td>
                         <td class="text-center align-middle">${result[i]["Titulo"]}</td>
                         <td class="text-center align-middle">${result[i]["EjemplaresDisponibles"]}</td>
@@ -52,7 +52,7 @@ function listarLibro() {
                 trRegistro.innerHTML = `
                     <td>${result[i]["idLibro"]}</td>
                     <td class="text-center align-middle">${result[i]["autor"]}</td>
-                    <td class="text-center align-middle">${result[i]["isnb"]}</td>
+                    <td class="text-center align-middle">${result[i]["isbn"]}</td>
                     <td class="text-center align-middle">${result[i]["genero"]}</td>
                     <td class="text-center align-middle">${result[i]["titulo"]}</td>
                     <td class="text-center align-middle">${result[i]["ejemplaresDisponibles"]}</td>
@@ -76,7 +76,7 @@ var registrarLibroBandera = true;
 // Función para registrar un médico
 function registrarLibro() {
     var Autor = document.getElementById("autor");
-    var ISNB = document.getElementById("isnb");
+    var ISBN = document.getElementById("isbn");
     var Genero = document.getElementById("genero");
     var Titulo = document.getElementById("titulo");
     var EjemplaresDisponibles = document.getElementById("ejemplaresDisponibles");
@@ -84,7 +84,7 @@ function registrarLibro() {
 
     // Verificar si algún campo obligatorio está vacío
     if (!validarAutor(Autor) ||
-        !validarISNB(ISNB) ||
+        !validarISBN(ISBN) ||
         !validarGenero(Genero) ||
         !validarTitulo(Titulo) ||
         !validarEjemplaresDisponibles(EjemplaresDisponibles) ||
@@ -100,7 +100,7 @@ function registrarLibro() {
 
     var forData = {
         "Autor": Autor.value,
-        "ISNB": ISNB.value,
+        "ISBN": ISBN.value,
         "Genero": Genero.value,
         "Titulo": Titulo.value,
         "EjemplaresDisponibles": EjemplaresDisponibles.value,
@@ -165,13 +165,13 @@ function registrarLibro() {
 // Función primerNombre
 function validarCampos() {
     var autor = document.getElementById("autor");
-    var isnb = document.getElementById("isnb");
+    var isbn = document.getElementById("isbn");
     var genero = document.getElementById("genero");
     var titulo = document.getElementById("titulo");
     var ejemplaresDisponibles = document.getElementById("ejemplaresDisponibles");
     var ejemplaresOcupados = document.getElementById("ejemplaresOcupados");
 
-    return validarAutor(autor) && validarISNB(isnb) && validarGenero(genero) && validarTitulo(titulo) && validarEjemplaresDisponibles(ejemplaresDisponibles) && validarEjemplaresOcupados(ejemplaresOcupados);
+    return validarAutor(autor) && validarISBN(isbn) && validarGenero(genero) && validarTitulo(titulo) && validarEjemplaresDisponibles(ejemplaresDisponibles) && validarEjemplaresOcupados(ejemplaresOcupados);
 }
 
 function validarAutor(cuadroNumero) {
@@ -191,7 +191,7 @@ function validarAutor(cuadroNumero) {
     return valido;
 }
 
-function validarISNB(cuadroNumero) {
+function validarISBN(cuadroNumero) {
     var valor = cuadroNumero.value;
     var valido = true;
 
@@ -282,8 +282,8 @@ function validarEjemplaresOcupados(cuadroNumero) {
 function limpiar() {
     document.getElementById("autor").value = "";
     document.getElementById("autor").className = "form-control";
-    document.getElementById("isnb").value = "";
-    document.getElementById("isnb").className = "form-control";
+    document.getElementById("isbn").value = "";
+    document.getElementById("isbn").className = "form-control";
     document.getElementById("genero").value = "";
     document.getElementById("genero").className = "form-control";
     document.getElementById("titulo").value = "";
@@ -305,7 +305,7 @@ $(document).on("click", ".editar", function () {
         type: "GET",
         success: function (Libro) {
             document.getElementById("autor").value = Libro.Autor;
-            document.getElementById("isnb").value = Libro.ISNB;
+            document.getElementById("isbn").value = Libro.ISNB;
             document.getElementById("genero").value = Libro.Genero;
             document.getElementById("titulo").value = Libro.Titulo;
             document.getElementById("ejemplaresDisponibles").value = Libro.EjemplaresDisponibles;

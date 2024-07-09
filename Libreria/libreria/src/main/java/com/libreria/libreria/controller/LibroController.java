@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +24,7 @@ public class LibroController {
     private ILibroService LibroService;
 
     @PostMapping("/")
-    public ResponseEntity<Object> save(@ModelAttribute("Libro") Libro Libro) {
+    public ResponseEntity<Object> save(@RequestBody Libro Libro) {
 
         if (Libro.getAutor().equals("")) {
 
@@ -40,7 +41,7 @@ public class LibroController {
             return new ResponseEntity<>("El titulo es un campo obligatorio", HttpStatus.BAD_REQUEST);
         }
 
-        if (Libro.getISNB().equals("")) {
+        if (Libro.getIsbn().equals("")) {
 
             return new ResponseEntity<>("El ISNB (codigo del libro) es un campo obligatorio", HttpStatus.BAD_REQUEST);
         }
@@ -91,7 +92,7 @@ public class LibroController {
             Libro.setAutor(LibroUpdate.getAutor());
             Libro.setGenero(LibroUpdate.getGenero());
             Libro.setTitulo(LibroUpdate.getTitulo());
-            Libro.setISNB(LibroUpdate.getISNB());
+            Libro.setIsbn(LibroUpdate.getIsbn());
             Libro.setEjemplaresDisponibles(LibroUpdate.getEjemplaresDisponibles());
             Libro.setEjemplaresOcupados(LibroUpdate.getEjemplaresOcupados());
 
