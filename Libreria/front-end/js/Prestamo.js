@@ -1,24 +1,26 @@
-function buscarUsuarioPorFiltro(filtro) {
-    if (filtro=== '') {
-        listarUsuario(); // Mostrar todos los médicos si estado es vacío
-    }else{
+function buscarPrestamoPorFiltro(filtro) {
+    if (filtro === '') {
+        listarPrestamo(); // Mostrar todos los médicos si estado es vacío
+    } else {
         $.ajax({
-            url: "http://localhost:8080/api/v1/Usuario/busquedafiltro/" + filtro,
+            url: "http://localhost:8080/api/v1/Prestamo/busquedafiltro/" + filtro,
             type: "GET",
             success: function (result) {
                 var cuerpoTabla = document.getElementById("cuerpoTabla");
                 cuerpoTabla.innerHTML = "";
-    
+
                 for (var i = 0; i < result.length; i++) {
                     var trRegistro = document.createElement("tr");
                     trRegistro.innerHTML = `
-                        <td>${result[i]["idUsuario"]}</td>
-                        <td class="text-center align-middle">${result[i]["Nombre"]}</td>
-                        <td class="text-center align-middle">${result[i]["Correo"]}</td>
-                        <td class="text-center align-middle">${result[i]["TipoUsuario"]}</td>
+                        <td>${result[i]["idPrestamo"]}</td>
+                        <td class="text-center align-middle">${result[i]["FechaPrestamo"]}</td>
+                        <td class="text-center align-middle">${result[i]["FechaDevolucion"]}</td>
+                         <td class="text-center align-middle">${result[i]["Usuario"]}</td>
+                          <td class="text-center align-middle">${result[i]["Libro"]}</td>
+                        <td class="text-center align-middle">${result[i]["Estado"]}</td>
                         <td class="text-center align-middle">
-                            <i class="fas fa-edit editar"  onclick="registrarUsuarioBandera=false;" data-id="${result[i]["idUsuario"]}"></i>
-                            <i class="fas fa-trash-alt eliminar" data-id="${result[i]["idUsuario"]}"></i>
+                            <i class="fas fa-edit editar"  onclick="registrarPrestamoBandera=false;" data-id="${result[i]["idPrestamo"]}"></i>
+                            <i class="fas fa-trash-alt eliminar" data-id="${result[i]["idPrestamo"]}"></i>
                         </td>
                     `;
                     cuerpoTabla.appendChild(trRegistro);
@@ -29,14 +31,14 @@ function buscarUsuarioPorFiltro(filtro) {
             }
         });
     }
-    
+
 }
 
 // URL de la API
-var url = "http://localhost:8080/api/v1/Usuario/";
+var url = "http://localhost:8080/api/v1/Prestamo/";
 
 // Función para listar los médicos
-function listarUsuario() {
+function listarPrestamo() {
     $.ajax({
         url: url,
         type: "GET",
@@ -47,13 +49,15 @@ function listarUsuario() {
             for (var i = 0; i < result.length; i++) {
                 var trRegistro = document.createElement("tr");
                 trRegistro.innerHTML = `
-                    <td>${result[i]["idUsuario"]}</td>
-                    <td class="text-center align-middle">${result[i]["nombre"]}</td>
-                    <td class="text-center align-middle">${result[i]["correo"]}</td>
-                    <td class="text-center align-middle">${result[i]["tipoUsuario"]}</td>
+                    <td>${result[i]["idPrestamo"]}</td>
+                    <td class="text-center align-middle">${result[i]["fechaPrestamo"]}</td>
+                    <td class="text-center align-middle">${result[i]["fechaDevolucion"]}</td>
+                    <td class="text-center align-middle">${result[i]["Usuario"]["Usuario"]}</td>
+                    <td class="text-center align-middle">${result[i]["Libro"]["Libro"]}</td>
+                    <td class="text-center align-middle">${result[i]["estado"]}</td>
                     <td class="text-center align-middle">
-                        <i class="fas fa-edit editar"  onclick="registrarUsuarioBandera=false;" data-id="${result[i]["idUsuario"]}"></i>
-                        <i class="fas fa-trash-alt eliminar" data-id="${result[i]["idUsuario"]}"></i>
+                        <i class="fas fa-edit editar"  onclick="registrarUsuarioBandera=false;" data-id="${result[i]["idPrestamo"]}"></i>
+                        <i class="fas fa-trash-alt eliminar" data-id="${result[i]["idPrestamo"]}"></i>
                     </td>
                 `;
                 cuerpoTabla.appendChild(trRegistro);
@@ -65,18 +69,64 @@ function listarUsuario() {
     });
 }
 
-var registrarUsuarioBandera = true;
+// Llamar a las funciones para cargar las listas al cargar la página
+$(document).ready(function () {
+    cargarUsuarioActivos();
+});
+
+// Función para cargar la lista de pacientes activos
+function cargarUsuarioActivos() {
+    $.ajax({
+        url: "http://localhost:8080/api/v1/Usuario/",
+        type: "GET",
+        success: function (result) {
+            result.forEach(function (Usuario) {
+                $("#Usuario").append(`<option value="${Usuario.idUsuario}">${Usuario.nombre}</option>`);
+            });
+        },
+        error: function (error) {
+            console.error("Error al cargar usuarios activos:", error);
+        }
+    });
+}
+
+// Llamar a las funciones para cargar las listas al cargar la página
+$(document).ready(function () {
+    cargarLibroActivos();
+});
+
+// Función para cargar la lista de pacientes activos
+function cargarLibroActivos() {
+    $.ajax({
+        url: "http://localhost:8080/api/v1/Libro/",
+        type: "GET",
+        success: function (result) {
+            result.forEach(function (Libro) {
+                $("#Libro").append(`<option value="${Libro.idLibro}">${Libro.titulo}</option>`);
+            });
+        },
+        error: function (error) {
+            console.error("Error al cargar Libros activos:", error);
+        }
+    });
+}
+
+var registrarPrestamoBandera = true;
 
 // Función para registrar un médico
-function registrarUsuario() {
-    var Nombre = document.getElementById("nombre");
-    var Correo = document.getElementById("correo");
-    var TipoUsuario = document.getElementById("tipoUsuario");
+function registrarPrestamo() {
+    var fechaPrestamo = document.getElementById("fechaPrestamo");
+    var fechaDevolucion = document.getElementById("fechaDevolucion");
+    var Usuario = document.getElementById("Usuario");
+    var Libro = document.getElementById("Libro");
+    var estado = document.getElementById("estado");
 
     // Verificar si algún campo obligatorio está vacío
-    if (!validarNombre(Nombre) ||
-        !validarCorreo(Correo) ||
-        !validarTipoUsuario(TipoUsuario)) {
+    if (!validarFechaPrestamo(fechaPrestamo) ||
+        !validarFechaDevolucion(fechaDevolucion) ||
+        !validarUsuario(Usuario) ||
+        !validarLibro(Libro) ||
+        !validarEstado(estado)) {
         // Mostrar una alerta indicando que todos los campos son obligatorios
         Swal.fire({
             title: "¡Error!",
@@ -87,15 +137,17 @@ function registrarUsuario() {
     }
 
     var forData = {
-        "Nombre": Nombre.value,
-        "Correo": Correo.value,
-        "TipoUsuario": TipoUsuario.value,
+        "fechaPrestamo": fechaPrestamo.value,
+        "fechaDevolucion": fechaDevolucion.value,
+        "Usuario": Usuario.value,
+        "Libro": Libro.value,
+        "estado": estado.value,
     };
 
     var metodo = "";
     var urlLocal = "";
     var textoimprimir = "";
-    if (registrarUsuarioBandera == true) {
+    if (registrarPrestamoBandera == true) {
         metodo = "POST";
         urlLocal = url;
         textoimprimir = Swal.fire({
@@ -105,7 +157,7 @@ function registrarUsuario() {
         });
     } else {
         metodo = "PUT";
-        urlLocal = url + idUsuario;
+        urlLocal = url + idPrestamo;
         textoimprimir = Swal.fire({
             title: "LISTO",
             text: "Felicidades, Guardado con éxito",
@@ -126,13 +178,13 @@ function registrarUsuario() {
                 }).then(function () {
                     // Aquí puedes agregar más acciones después del registro exitoso
                     $('#exampleModal').modal('hide');
-                    listarUsuario();
+                    listarPrestamo();
                 });
             },
             error: function (xhr, status, error) {
                 Swal.fire({
                     title: "Error",
-                    text: "¡El número de documento ya se encuentra registrado!",
+                    text: "¡El prestamo ya se encuentra registrado!",
                     icon: "error"
                 });
             }
@@ -147,16 +199,18 @@ function registrarUsuario() {
 };
 
 
-// Función primerNombre
+// Función primerUsuario
 function validarCampos() {
-    var nombre = document.getElementById("nombre");
-    var correo = document.getElementById("correo");
-    var tipoUsuario = document.getElementById("tipoUsuario");
+    var fechaPrestamo = document.getElementById("fechaPrestamo");
+    var fechaDevolucion = document.getElementById("fechaDevolucion");
+    var Usuario = document.getElementById("Usuario");
+    var Libro = document.getElementById("Libro");
+    var estado = document.getElementById("estado");
 
-    return validarNombre(nombre) && validarCorreo(correo) && validarTipoUsuario(tipoUsuario);
+    return validarFechaPrestamo(fechaPrestamo) && validarFechaDevolucion(fechaDevolucion) && validarUsuario(Usuario) && validarLibro(Libro) && validarEstado(estado);
 }
 
-function validarNombre(cuadroNumero) {
+function validarFechaPrestamo(cuadroNumero) {
     var valor = cuadroNumero.value;
     var valido = true;
 
@@ -175,7 +229,7 @@ function validarNombre(cuadroNumero) {
 
 // Función primerApellido
 
-function validarCorreo(cuadroNumero) {
+function validarFechaDevolucion(cuadroNumero) {
     var valor = cuadroNumero.value;
     var valido = true;
 
@@ -194,7 +248,41 @@ function validarCorreo(cuadroNumero) {
 
 // Función Telefono
 
-function validarTipoUsuario(cuadroNumero) {
+function validarNombre(cuadroNumero) {
+    var valor = cuadroNumero.value;
+    var valido = true;
+
+    if (valor.length < 1 || valor.length > 100) {
+        valido = false;
+    }
+
+    if (valido) {
+        cuadroNumero.className = "form-control is-valid";
+    } else {
+        cuadroNumero.className = "form-control is-invalid";
+    }
+
+    return valido;
+}
+
+function validarLibro(cuadroNumero) {
+    var valor = cuadroNumero.value;
+    var valido = true;
+
+    if (valor.length < 1 || valor.length > 100) {
+        valido = false;
+    }
+
+    if (valido) {
+        cuadroNumero.className = "form-control is-valid";
+    } else {
+        cuadroNumero.className = "form-control is-invalid";
+    }
+
+    return valido;
+}
+
+function validarEstado(cuadroNumero) {
     var valor = cuadroNumero.value;
     var valido = true;
 
@@ -213,31 +301,37 @@ function validarTipoUsuario(cuadroNumero) {
 
 // Función para limpiar campos del formulario
 function limpiar() {
-    document.getElementById("nombre").value = "";
-    document.getElementById("nombre").className = "form-control";
-    document.getElementById("correo").value = "";
-    document.getElementById("correo").className = "form-control";
-    document.getElementById("tipoUsuario").value = "";
-    document.getElementById("tipoUsuario").value = "";
+    document.getElementById("fechaPrestamo").value = "";
+    document.getElementById("fechaPrestamo").className = "form-control";
+    document.getElementById("fechaDevolucion").value = "";
+    document.getElementById("fechaDevolucion").className = "form-control";
+    document.getElementById("Usuario").value = "";
+    document.getElementById("Usuario").className = "form-control";
+    document.getElementById("Libro").value = "";
+    document.getElementById("Libro").className = "form-control";
+    document.getElementById("estado").value = "";
+    document.getElementById("estado").className = "form-control";
 }
 
-var idUsuario = "";
+var idPrestamo = "";
 // Asociar eventos de clic a los iconos dentro de la tabla
 $(document).on("click", ".editar", function () {
     limpiar();
-    idUsuario = $(this).data("id");
+    idPrestamo = $(this).data("id");
 
     $.ajax({
-        url: url + idUsuario,
+        url: url + idPrestamo,
         type: "GET",
-        success: function (Usuario) {
-            document.getElementById("nombre").value = Usuario.Nombre;
-            document.getElementById("correo").value = Usuario.Correo;
-            document.getElementById("tipoUsuario").value = Usuario.TipoUsuario;
+        success: function (Prestamo) {
+            document.getElementById("fechaPrestamo").value = Prestamo.FechaPrestamo;
+            document.getElementById("fechaDevolucion").value = Prestamo.FechaDevolucion;
+            document.getElementById("Usuario").value = Prestamo.Usuario.idUsuario;
+            document.getElementById("Libro").value = Prestamo.Libro.idLibro;
+            document.getElementById("estado").value = Prestamo.Estado;
             $('#exampleModal').modal('show');
         },
         error: function (error) {
-            alert("Error al obtener los datos del Usuario: " + error.statusText);
+            alert("Error al obtener los datos del Prestamo: " + error.statusText);
         }
     });
 });
@@ -264,12 +358,12 @@ $(document).on("click", ".editar", function () {
 
 $(document).on("click", ".eliminar", function () {
     // Obtener el ID del médico desde el atributo data del elemento clicado
-    var idUsuario = $(this).data("id");
+    var idPrestamo = $(this).data("id");
 
     // Mostrar un cuadro de diálogo para confirmar la eliminación
     Swal.fire({
         title: '¿Estás seguro?',
-        text: "¿Deseas eliminar este usuario?",
+        text: "¿Deseas eliminar este Prestamo?",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -279,7 +373,7 @@ $(document).on("click", ".eliminar", function () {
         // Si el usuario confirma la eliminación, proceder con la solicitud AJAX
         if (result.isConfirmed) {
             $.ajax({
-                url: url + "eliminarPermanente/" + idUsuario,
+                url: url + "eliminarPermanente/" + idPrestamo,
                 type: "DELETE",
                 success: function (eliminarPermanente) {
                     // Mostrar un mensaje de éxito
@@ -291,7 +385,7 @@ $(document).on("click", ".eliminar", function () {
                         timer: 1500
                     });
                     // Actualizar la lista de usuarios después de eliminar
-                    listarUsuario();
+                    listarPrestamo();
                 },
                 error: function (xhr, status, error) {
                     // Manejo de errores
@@ -311,9 +405,9 @@ $(document).on("click", ".eliminar", function () {
 
 // Llamar a la función para listar médicos al cargar la página
 $(document).ready(function () {
-    listarUsuario();
+    listarPrestamo();
 });
-function actualizarlistarUsuario() {
-    listarUsuario();
+function actualizarlistarPrestamo() {
+    listarPrestamo();
 }
 

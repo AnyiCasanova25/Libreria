@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multa</title>
+    <title>Prestamo</title>
     <link rel="stylesheet" href="/Libreria/front-end/styleflexbox.css">
     <link rel="stylesheet" href="/Front-end/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -76,8 +76,8 @@
                     </div>
                     <br>
                     <!-- Modal -->
-                    <div class="modal fade " id="exampleModal" data-bs-backdrop="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
+                    <div class="modal fade " id="exampleModal" data-bs-backdrop="exampleModal" tabindex="-1"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog fondomodaldialog">
                             <div class="modal-content col">
                                 <div class="  modal-header">
@@ -96,23 +96,36 @@
                                                 <form class="row table-hover needs-validation">
 
                                                     <div class="col col-xl-6 col-12 table-hover">
-                                                        <label for="">Nombre</label>
-                                                        <input type="text" id="nombre" class="form-control"
-                                                            onfocusout="validarNombre(this)" required>
+                                                        <label for="">Fecha de Préstamo</label>
+                                                        <input type="Date" id="fechaPrestamo" class="form-control"
+                                                            onfocusout="validarFechaPrestamo(this)" required>
                                                     </div>
 
                                                     <div class="col col-xl-6 col-12 table-hover">
-                                                        <label for="">Correo</label>
-                                                        <input type="text" id="correo" class="form-control">
+                                                        <label for="">Fecha de Devolución</label>
+                                                        <input type="Date" id="fechaDevolucion" class="form-control"
+                                                            onfocusout="validarFechaDevolucion(this)" required>
+                                                    </div>
+
+                                                    <div class="col col-xl-6 col-12 table-hover">
+                                                        <label for="Usuario">Usuario</label>
+                                                        <select id="Usuario" class="form-control"
+                                                        onfocusout="validarNombre(this)" required></select>
+                                                    </div>
+
+                                                    <div class="col col-xl-6 col-12 table-hover">
+                                                        <label for="Libro">Libro</label>
+                                                        <select id="Libro" class="form-control"
+                                                        onfocusout="validarLibro(this)" required></select>
                                                     </div>
 
                                                     <div class="col col-xl-6 col-12">
-                                                        <label for="">Tipo de Usuario</label>
-                                                        <select type="text" id="tipoUsuario" class="form-control"
-                                                            onfocusout="validarTipoUsuario(this)" required>
-                                                            <option value="Lector">Lector</option>
-                                                            <option value="Bibliotecario">Bibliotecario</option>
-                                                            <option value="Administrador">Administrador</option>
+                                                        <label for="">Estado</label>
+                                                        <select type="text" id="estado" class="form-control"
+                                                            onfocusout="validarEstado(this)" required>
+                                                            <option value="Prestamo">Préstamo</option>
+                                                            <option value="Entregado">Entregado</option>
+                                                            <option value="Cancelado">Cancelado</option>
                                                         </select>
                                                     </div>
                                                 </form>
@@ -123,7 +136,7 @@
                                 </div>
                                 <div class="modal-footer ">
                                     <button type="button" class="btn btn-dark"
-                                        onclick="registrarUsuario(); limpiar();">Registrar</button>
+                                        onclick="registrarPrestamo(); limpiar();">Registrar</button>
                                 </div>
                             </div>
                         </div>
@@ -131,9 +144,11 @@
                     <table class="table table-hover table-striped">
                         <div class="colorTabla">
                             <tr>
-                                <th class="colorTabla">Nombre</th>
-                                <th class="colorTabla">Correo</th>
-                                <th class="colorTabla">Tipo de Usuario</th>
+                                <th class="colorTabla">Fecha de Préstamo</th>
+                                <th class="colorTabla">Fecha de Devolución</th>
+                                <th class="colorTabla">Usuario</th>
+                                <th class="colorTabla">Libro</th>
+                                <th class="colorTabla">Estado</th>
                                 <th class="colorTabla">Opciones</th>
                             </tr>
                         </div>
@@ -143,7 +158,7 @@
             </div>
         </div>
     </div>
-    <script src="/Libreria/front-end/js/Usuario.js"></script>
+    <script src="/Libreria/front-end/js/Prestamo.js"></script>
 </body>
 
 </html>
