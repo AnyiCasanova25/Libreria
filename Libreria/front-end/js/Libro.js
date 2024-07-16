@@ -12,11 +12,11 @@ function buscarLibroPorFiltro(filtro) {
                 for (var i = 0; i < result.length; i++) {
                     var trRegistro = document.createElement("tr");
                     trRegistro.innerHTML = `
-                        <td>${result[i]["idLibro"]}</td>
+                        <td class="text-center align-middle">${result[i]["idLibro"]}</td>
+                        <td class="text-center align-middle">${result[i]["Titulo"]}</td>
                         <td class="text-center align-middle">${result[i]["Autor"]}</td>
                         <td class="text-center align-middle">${result[i]["ISBN"]}</td>
                         <td class="text-center align-middle">${result[i]["Genero"]}</td>
-                        <td class="text-center align-middle">${result[i]["Titulo"]}</td>
                         <td class="text-center align-middle">${result[i]["EjemplaresDisponibles"]}</td>
                         <td class="text-center align-middle">${result[i]["EjemplaresOcupados"]}</td>
                         <td class="text-center align-middle">
@@ -51,10 +51,10 @@ function listarLibro() {
                 var trRegistro = document.createElement("tr");
                 trRegistro.innerHTML = `
                     <td>${result[i]["idLibro"]}</td>
+                    <td class="text-center align-middle">${result[i]["titulo"]}</td>
                     <td class="text-center align-middle">${result[i]["autor"]}</td>
                     <td class="text-center align-middle">${result[i]["isbn"]}</td>
                     <td class="text-center align-middle">${result[i]["genero"]}</td>
-                    <td class="text-center align-middle">${result[i]["titulo"]}</td>
                     <td class="text-center align-middle">${result[i]["ejemplaresDisponibles"]}</td>
                     <td class="text-center align-middle">${result[i]["ejemplaresOcupados"]}</td>
                     <td class="text-center align-middle">
@@ -75,18 +75,18 @@ var registrarLibroBandera = true;
 
 // Función para registrar un médico
 function registrarLibro() {
+    var Titulo = document.getElementById("titulo");
     var Autor = document.getElementById("autor");
     var ISBN = document.getElementById("isbn");
     var Genero = document.getElementById("genero");
-    var Titulo = document.getElementById("titulo");
     var EjemplaresDisponibles = document.getElementById("ejemplaresDisponibles");
     var EjemplaresOcupados = document.getElementById("ejemplaresOcupados");
 
     // Verificar si algún campo obligatorio está vacío
-    if (!validarAutor(Autor) ||
-        !validarISBN(ISBN) ||
-        !validarGenero(Genero) ||
-        !validarTitulo(Titulo) ||
+    if (!validarAutor(Titulo) ||
+        !validarISBN(Autor) ||
+        !validarGenero(ISBN) ||
+        !validarTitulo(Genero) ||
         !validarEjemplaresDisponibles(EjemplaresDisponibles) ||
         !validarEjemplaresOcupados(EjemplaresOcupados)) {
         // Mostrar una alerta indicando que todos los campos son obligatorios

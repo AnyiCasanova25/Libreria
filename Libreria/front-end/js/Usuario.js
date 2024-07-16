@@ -47,7 +47,7 @@ function listarUsuario() {
             for (var i = 0; i < result.length; i++) {
                 var trRegistro = document.createElement("tr");
                 trRegistro.innerHTML = `
-                    <td>${result[i]["idUsuario"]}</td>
+                    <td class="text-center align-middle">${result[i]["idUsuario"]}</td>
                     <td class="text-center align-middle">${result[i]["nombre"]}</td>
                     <td class="text-center align-middle">${result[i]["correo"]}</td>
                     <td class="text-center align-middle">${result[i]["tipoUsuario"]}</td>
@@ -231,9 +231,9 @@ $(document).on("click", ".editar", function () {
         url: url + idUsuario,
         type: "GET",
         success: function (Usuario) {
-            document.getElementById("nombre").value = Usuario.Nombre;
-            document.getElementById("correo").value = Usuario.Correo;
-            document.getElementById("tipoUsuario").value = Usuario.TipoUsuario;
+            document.getElementById("nombre").value = Usuario.nombre;
+            document.getElementById("correo").value = Usuario.correo;
+            document.getElementById("tipoUsuario").value = Usuario.tipoUsuario;
             $('#exampleModal').modal('show');
         },
         error: function (error) {
