@@ -121,11 +121,6 @@ function registrarLibro() {
     } else {
         metodo = "PUT";
         urlLocal = url + idLibro;
-        textoimprimir = Swal.fire({
-            title: "LISTO",
-            text: "Felicidades, Guardado con éxito",
-            icon: "success"
-        });
     }
 
     if (validarCampos()) {
