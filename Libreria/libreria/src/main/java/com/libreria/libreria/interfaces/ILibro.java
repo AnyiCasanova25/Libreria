@@ -12,6 +12,6 @@ import com.libreria.libreria.models.Libro;
 public interface ILibro extends CrudRepository<Libro, String>{
     
     // Buscar libros por título, autor, género o ISBN.
-    @Query("SELECT l FROM Libro l WHERE l.Titulo LIKE %?1% OR l.Autor LIKE %?1% OR l.Genero LIKE %?1% OR l.isbn LIKE %?1%")
+    @Query("SELECT l FROM Libro l WHERE l.titulo LIKE %?1% OR l.autor LIKE %?1% OR l.genero LIKE %?1% OR l.isbn LIKE %?1%")
     List<Libro> filtroLibro(String filtro);
 }

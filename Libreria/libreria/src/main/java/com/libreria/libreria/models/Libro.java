@@ -31,21 +31,21 @@ public class Libro {
      @Column(name = "idLibro", nullable = false, length = 36)
      private String idLibro;
 
-     @Column(name = "Autor", nullable = false, length = 36)
-     private String Autor;
+     @Column(name = "autor", nullable = false, length = 36)
+     private String autor;
 
      @Column(name = "isbn", nullable = false, length = 13)
      private String isbn;
 
-     @Column(name = "Genero", nullable = false, length = 36)
-     private String Genero;
+     @Column(name = "genero", nullable = false, length = 36)
+     private String genero;
 
-     @Column(name = "Titulo", nullable = false, length = 36)
-     private String Titulo;
+     @Column(name = "titulo", nullable = false, length = 36)
+     private String titulo;
 
-     @Column(name = "EjemplaresDisponibles", nullable = false, length = 36)
-     private String EjemplaresDisponibles;
+     @Column(name = "ejemplaresDisponibles", nullable = false, length = 36)
+     private String ejemplaresDisponibles;
 
-     @Column(name = "EjemplaresOcupados", nullable = false, length = 36)
-     private String EjemplaresOcupados;
+     @Column(name = "ejemplaresOcupados", nullable = false, length = 36)
+     private String ejemplaresOcupados;
 }

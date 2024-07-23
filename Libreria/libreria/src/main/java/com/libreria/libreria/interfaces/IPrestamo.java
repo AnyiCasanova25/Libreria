@@ -15,7 +15,7 @@ public interface IPrestamo extends CrudRepository<Prestamo, String>{
     @Query("SELECT p FROM Prestamo p " +
     "JOIN p.Usuario u " +
     "JOIN p.Libro l " +
-    "WHERE p.Estado LIKE %?1% OR u.Nombre LIKE %?2% OR l.Titulo LIKE %?3%")
-    List<Prestamo> prestamoExist(String Estado, String Nombre, String Titulo);
+    "WHERE p.Estado LIKE %?1% OR u.Nombre LIKE %?2% OR l.titulo LIKE %?3%")
+    List<Prestamo> prestamoExist(String Estado, String Nombre, String titulo);
 
 }

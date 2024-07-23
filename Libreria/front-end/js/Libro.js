@@ -98,13 +98,13 @@ function registrarLibro() {
         return; // Salir de la función si algún campo está vacío
     }
 
-    var forData = {
-        "Autor": Autor.value,
-        "ISBN": ISBN.value,
-        "Genero": Genero.value,
-        "Titulo": Titulo.value,
-        "EjemplaresDisponibles": EjemplaresDisponibles.value,
-        "EjemplaresOcupados": EjemplaresOcupados.value,
+    var FormData = {
+        "autor": autor.value,
+        "isbn": isbn.value,
+        "genero": genero.value,
+        "titulo": titulo.value,
+        "ejemplaresDisponibles": ejemplaresDisponibles.value,
+        "ejemplaresOcupados": ejemplaresOcupados.value,
     };
 
     var metodo = "";
@@ -113,11 +113,11 @@ function registrarLibro() {
     if (registrarLibroBandera == true) {
         metodo = "POST";
         urlLocal = url;
-        textoimprimir = Swal.fire({
-            title: "LISTO",
-            text: "Felicidades, Registrado con éxito",
-            icon: "success"
-        });
+        // textoimprimir = Swal.fire({
+        //     title: "LISTO",
+        //     text: "Felicidades, Registrado con éxito",
+        //     icon: "success"
+        // });
     } else {
         metodo = "PUT";
         urlLocal = url + idLibro;
@@ -132,7 +132,8 @@ function registrarLibro() {
         $.ajax({
             url: urlLocal,
             type: metodo,
-            data: forData,
+            contentType:"application/json",
+            data:JSON.stringify(FormData),
             success: function (response) {
                 Swal.fire({
                     title: "Éxito",
