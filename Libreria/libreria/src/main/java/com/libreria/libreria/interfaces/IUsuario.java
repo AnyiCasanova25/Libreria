@@ -13,7 +13,7 @@ public interface IUsuario extends CrudRepository<Usuario, String>{
     
     // Buscar usuarios por nombre o correo electrónico.
 
-    @Query("SELECT u FROM Usuario u WHERE u.Nombre LIKE %?1% OR u.Correo LIKE %?1%")
+    @Query("SELECT u FROM Usuario u WHERE u.nombre LIKE %?1% OR u.correo LIKE %?1%")
     List<Usuario> filtroUsuario(String filtro);
 
 }

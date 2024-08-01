@@ -29,8 +29,8 @@ public class MultaService implements IMultaService {
     }
 
     @Override
-    public List<Multa> multaExist(String filtro) {
-        List<Multa> listaMulta = data.multaExist( filtro, filtro);
+    public List<Multa> multaExist(String  estado) {
+        List <Multa> listaMulta = data.multaExist(estado);
         return listaMulta;
     }
 

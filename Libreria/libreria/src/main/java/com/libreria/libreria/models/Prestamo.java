@@ -52,6 +52,6 @@ public class Prestamo {
     @JoinColumn(name = "idLibro")
     private Libro Libro;
 
-    @Column(name = "Estado", nullable = false, length = 36)
-    private String Estado;
+    @Column(name = "estado", nullable = false, length = 36)
+    private String estado;
 }

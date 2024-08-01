@@ -17,11 +17,9 @@ public interface IMulta extends CrudRepository<Multa, String>{
 // o Fecha multa.
 // o Estado.
 
-    @Query("SELECT m FROM Multa m " +
-    "JOIN m.Prestamo p " +
-    "WHERE m.estado LIKE %?1% OR p.Estado LIKE %?2%")
+    @Query("SELECT m FROM Multa m WHERE m.estado LIKE %?1%")
 
-    List<Multa> multaExist(String estado, String Estado);
+    List<Multa> multaExist(String estado);
 
 
     @Query("SELECT m FROM Multa m WHERE m.fechaMulta = ?1")
