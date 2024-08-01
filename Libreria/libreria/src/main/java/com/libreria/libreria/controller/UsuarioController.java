@@ -5,10 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +23,7 @@ public class UsuarioController {
     private IUsuarioService UsuarioService;
 
     @PostMapping("/")
-    public ResponseEntity<Object> save(@ModelAttribute("Usuario") Usuario Usuario) {
+    public ResponseEntity<Object> save(@RequestBody Usuario Usuario) {
 
         if (Usuario.getNombre().equals("")) {
 
@@ -68,7 +68,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> update(@PathVariable String id, @ModelAttribute("Usuario") Usuario UsuarioUpdate) {
+    public ResponseEntity<Object> update(@PathVariable String id, @RequestBody Usuario UsuarioUpdate) {
         var Usuario = UsuarioService.findOne(id).get();
         if (Usuario != null) {
 

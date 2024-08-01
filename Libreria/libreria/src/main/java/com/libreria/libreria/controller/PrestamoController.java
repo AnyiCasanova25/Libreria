@@ -5,10 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +23,7 @@ public class PrestamoController {
     private IPrestamoService PrestamoService;
 
     @PostMapping("/")
-    public ResponseEntity<Object> save(@ModelAttribute("Prestamo") Prestamo Prestamo) {
+    public ResponseEntity<Object> save(@RequestBody Prestamo Prestamo) {
 
         if (Prestamo.getFechaPrestamo().equals("")) {
 
@@ -69,7 +69,7 @@ public class PrestamoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> update(@PathVariable String id, @ModelAttribute("Prestamo") Prestamo PrestamoUpdate) {
+    public ResponseEntity<Object> update(@PathVariable String id, @RequestBody Prestamo PrestamoUpdate) {
         var Prestamo = PrestamoService.findOne(id).get();
         if (Prestamo != null) {
 

@@ -136,7 +136,7 @@ function registrarPrestamo() {
         return; // Salir de la función si algún campo está vacío
     }
 
-    var forData = {
+    var FormData = {
         "fechaPrestamo": fechaPrestamo.value,
         "fechaDevolucion": fechaDevolucion.value,
         "Usuario": Usuario.value,
@@ -169,7 +169,8 @@ function registrarPrestamo() {
         $.ajax({
             url: urlLocal,
             type: metodo,
-            data: forData,
+            contentType:"application/json",
+            data:JSON.stringify(FormData),
             success: function (response) {
                 Swal.fire({
                     title: "Éxito",

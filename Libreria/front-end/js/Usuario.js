@@ -86,7 +86,7 @@ function registrarUsuario() {
         return; // Salir de la función si algún campo está vacío
     }
 
-    var forData = {
+    var FormData = {
         "Nombre": Nombre.value,
         "Correo": Correo.value,
         "TipoUsuario": TipoUsuario.value,
@@ -117,7 +117,8 @@ function registrarUsuario() {
         $.ajax({
             url: urlLocal,
             type: metodo,
-            data: forData,
+            contentType:"application/json",
+            data:JSON.stringify(FormData),
             success: function (response) {
                 Swal.fire({
                     title: "Éxito",

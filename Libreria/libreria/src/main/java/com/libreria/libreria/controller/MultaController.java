@@ -7,10 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +25,7 @@ public class MultaController {
     private IMultaService MultaService;
 
     @PostMapping("/")
-    public ResponseEntity<Object> save(@ModelAttribute("Multa") Multa Multa) {
+    public ResponseEntity<Object> save(@RequestBody Multa Multa) {
 
         if (Multa.getFechaMulta().equals("")) {
 
@@ -77,7 +77,7 @@ public class MultaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> update(@PathVariable String id, @ModelAttribute("Multa") Multa MultaUpdate) {
+    public ResponseEntity<Object> update(@PathVariable String id, @RequestBody Multa MultaUpdate) {
         var Multa = MultaService.findOne(id).get();
         if (Multa != null) {
 
