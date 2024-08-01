@@ -12,7 +12,7 @@ function buscarUsuarioPorFiltro(filtro) {
                 for (var i = 0; i < result.length; i++) {
                     var trRegistro = document.createElement("tr");
                     trRegistro.innerHTML = `
-                        <td>${result[i]["idUsuario"]}</td>
+                        <td class="text-center align-middle">${result[i]["idUsuario"]}</td>
                         <td class="text-center align-middle">${result[i]["Nombre"]}</td>
                         <td class="text-center align-middle">${result[i]["Correo"]}</td>
                         <td class="text-center align-middle">${result[i]["TipoUsuario"]}</td>
@@ -87,9 +87,9 @@ function registrarUsuario() {
     }
 
     var FormData = {
-        "Nombre": Nombre.value,
-        "Correo": Correo.value,
-        "TipoUsuario": TipoUsuario.value,
+        "Nombre": nombre.value,
+        "Correo": correo.value,
+        "TipoUsuario": tipoUsuario.value,
     };
 
     var metodo = "";
@@ -98,19 +98,19 @@ function registrarUsuario() {
     if (registrarUsuarioBandera == true) {
         metodo = "POST";
         urlLocal = url;
-        textoimprimir = Swal.fire({
-            title: "LISTO",
-            text: "Felicidades, Registrado con éxito",
-            icon: "success"
-        });
+        // textoimprimir = Swal.fire({
+        //     title: "LISTO",
+        //     text: "Felicidades, Registrado con éxito",
+        //     icon: "success"
+        // });
     } else {
         metodo = "PUT";
         urlLocal = url + idUsuario;
-        textoimprimir = Swal.fire({
-            title: "LISTO",
-            text: "Felicidades, Guardado con éxito",
-            icon: "success"
-        });
+        // textoimprimir = Swal.fire({
+        //     title: "LISTO",
+        //     text: "Felicidades, Guardado con éxito",
+        //     icon: "success"
+        // });
     }
 
     if (validarCampos()) {

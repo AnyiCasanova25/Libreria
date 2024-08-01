@@ -103,7 +103,8 @@
 
                                                     <div class="col col-xl-6 col-12 table-hover">
                                                         <label for="">Correo</label>
-                                                        <input type="text" id="correo" class="form-control">
+                                                        <input type="text" id="correo" class="form-control"
+                                                        onfocusout="validarCorreo(this)" required>
                                                     </div>
 
                                                     <div class="col col-xl-6 col-12">
@@ -123,7 +124,8 @@
                                 </div>
                                 <div class="modal-footer ">
                                     <button type="button" class="btn btn-dark"
-                                        onclick="registrarUsuario(); limpiar();">Registrar</button>
+                                        onclick="registrarUsuario();">Registrar</button>
+                                        <!-- justo aqui va un limpiar();, DESPUES DE REGISTRAR USUARIO -->
                                 </div>
                             </div>
                         </div>

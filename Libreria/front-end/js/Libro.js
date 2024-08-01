@@ -109,7 +109,6 @@ function registrarLibro() {
 
     var metodo = "";
     var urlLocal = "";
-    var textoimprimir = "";
     if (registrarLibroBandera == true) {
         metodo = "POST";
         urlLocal = url;

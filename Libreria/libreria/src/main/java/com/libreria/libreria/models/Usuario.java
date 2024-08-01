@@ -29,15 +29,15 @@ public class Usuario {
     @Column(name = "idUsuario", nullable = false, length = 36)
     private String idUsuario;
 
-    @Column(name = "Nombre", nullable = false, length = 36)
-    private String Nombre;
+    @Column(name = "nombre", nullable = false, length = 36)
+    private String nombre;
 
-    @Column(name = "Correo", nullable = false, length = 36)
-    private String Correo;
+    @Column(name = "correo", nullable = false, length = 36)
+    private String correo;
 
-    @Column(name = "TipoUsuario", nullable = false, length = 36)
-    private String TipoUsuario;
+    @Column(name = "tipoUsuario", nullable = false, length = 36)
+    private String tipoUsuario;
 
-    @Column(name = "Direccion", nullable = false, length = 36)
-    private String Direccion;
+    @Column(name = "direccion", nullable = false, length = 36)
+    private String direccion;
 }

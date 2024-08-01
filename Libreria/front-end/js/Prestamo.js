@@ -56,7 +56,7 @@ function listarPrestamo() {
                     <td class="text-center align-middle">${result[i]["Libro"]["Libro"]}</td>
                     <td class="text-center align-middle">${result[i]["estado"]}</td>
                     <td class="text-center align-middle">
-                        <i class="fas fa-edit editar"  onclick="registrarUsuarioBandera=false;" data-id="${result[i]["idPrestamo"]}"></i>
+                        <i class="fas fa-edit editar"  onclick="registrarPrestamoBandera=false;" data-id="${result[i]["idPrestamo"]}"></i>
                         <i class="fas fa-trash-alt eliminar" data-id="${result[i]["idPrestamo"]}"></i>
                     </td>
                 `;
@@ -146,23 +146,22 @@ function registrarPrestamo() {
 
     var metodo = "";
     var urlLocal = "";
-    var textoimprimir = "";
     if (registrarPrestamoBandera == true) {
         metodo = "POST";
         urlLocal = url;
-        textoimprimir = Swal.fire({
-            title: "LISTO",
-            text: "Felicidades, Registrado con éxito",
-            icon: "success"
-        });
+        // textoimprimir = Swal.fire({
+        //     title: "LISTO",
+        //     text: "Felicidades, Registrado con éxito",
+        //     icon: "success"
+        // });
     } else {
         metodo = "PUT";
         urlLocal = url + idPrestamo;
-        textoimprimir = Swal.fire({
-            title: "LISTO",
-            text: "Felicidades, Guardado con éxito",
-            icon: "success"
-        });
+        // textoimprimir = Swal.fire({
+        //     title: "LISTO",
+        //     text: "Felicidades, Guardado con éxito",
+        //     icon: "success"
+        // });
     }
 
     if (validarCampos()) {
