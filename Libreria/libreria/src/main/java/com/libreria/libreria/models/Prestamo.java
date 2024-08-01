@@ -38,7 +38,7 @@ public class Prestamo {
     @Column(name = "idPrestamo", nullable = false, length = 36)
     private String idPrestamo;
 
-    @Column(name = "fechaPrestamo", nullable = false, length = 36)
+    @Column(name = "fechaPrestamo", nullable = false)
     private Date fechaPrestamo;
 
     @Column(name = "fechaDevolucion", nullable = false, length = 36)

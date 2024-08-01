@@ -37,4 +37,7 @@ public class Usuario {
 
     @Column(name = "TipoUsuario", nullable = false, length = 36)
     private String TipoUsuario;
+
+    @Column(name = "Direccion", nullable = false, length = 36)
+    private String Direccion;
 }

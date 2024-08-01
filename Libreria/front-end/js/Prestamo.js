@@ -299,6 +299,24 @@ function validarEstado(cuadroNumero) {
     return valido;
 }
 
+function validarUsuario(cuadroNumero) {
+    var valor = cuadroNumero.value;
+    var valido = true;
+
+    if (valor.length < 1 || valor.length > 100) {
+        valido = false;
+    }
+
+    if (valido) {
+        cuadroNumero.className = "form-control is-valid";
+    } else {
+        cuadroNumero.className = "form-control is-invalid";
+    }
+
+    return valido;
+}
+
+
 // Función para limpiar campos del formulario
 function limpiar() {
     document.getElementById("fechaPrestamo").value = "";
