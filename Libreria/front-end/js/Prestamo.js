@@ -12,12 +12,17 @@ function buscarPrestamoPorFiltro(filtro) {
                 for (var i = 0; i < result.length; i++) {
                     var trRegistro = document.createElement("tr");
                     trRegistro.innerHTML = `
-                        <td class="text-center align-middle">${result[i]["idPrestamo"]}</td>
-                        <td class="text-center align-middle">${result[i]["FechaPrestamo"]}</td>
-                        <td class="text-center align-middle">${result[i]["FechaDevolucion"]}</td>
-                         <td class="text-center align-middle">${result[i]["Usuario"]}</td>
-                          <td class="text-center align-middle">${result[i]["Libro"]}</td>
-                        <td class="text-center align-middle">${result[i]["Estado"]}</td>
+                    <td class="text-center align-middle">${result[i]["idPrestamo"]}</td>
+                    <td class="text-center align-middle">${result[i]["fechaPrestamo"]}</td>
+                    <td class="text-center align-middle">${result[i]["fechaDevolucion"]}</td>
+                    <td class="text-center align-middle">${result[i]["usuario"]["nombre"]}</td>`;
+                    if (result[i]["libro"] != null)
+                        trRegistro.innerHTML += `<td class="text-center align-middle">${result[i]["libro"]["titulo"]}</td>`;
+                    else {
+                        trRegistro.innerHTML += `<td class="text-center align-middle">No hay libro</td>`;
+                    }
+                    trRegistro.innerHTML += `
+                    <td class="text-center align-middle">${result[i]["estado"]}</td>
                         <td class="text-center align-middle">
                             <i class="fas fa-edit editar"  onclick="registrarPrestamoBandera=false;" data-id="${result[i]["idPrestamo"]}"></i>
                             <i class="fas fa-trash-alt eliminar" data-id="${result[i]["idPrestamo"]}"></i>
@@ -86,7 +91,7 @@ function cargarUsuarioActivos() {
         type: "GET",
         success: function (result) {
             result.forEach(function (Usuario) {
-                $("#Usuario").append(`< option value = "${Usuario.idUsuario}" > ${Usuario.nombre}</ > `);
+                $("#Usuario").append(`<option value = "${Usuario.idUsuario}" > ${Usuario.nombre}</> `);
             });
         },
         error: function (error) {
@@ -107,7 +112,7 @@ function cargarLibroActivos() {
         type: "GET",
         success: function (result) {
             result.forEach(function (Libro) {
-                $("#Libro").append(`< option value = "${Libro.idLibro}" > ${Libro.titulo}</ > `);
+                $("#Libro").append(`<option value = "${Libro.idLibro}" > ${Libro.titulo}</> `);
             });
         },
         error: function (error) {
@@ -122,8 +127,8 @@ var registrarPrestamoBandera = true;
 function registrarPrestamo() {
     var fechaPrestamo = document.getElementById("fechaPrestamo");
     var fechaDevolucion = document.getElementById("fechaDevolucion");
-    var Usuario = document.getElementById("titulo");
-    var Libro = document.getElementById("nombre");
+    var Usuario = document.getElementById("Usuario");
+    var Libro = document.getElementById("Libro");
     var estado = document.getElementById("estado");
 
     // Verificar si algún campo obligatorio está vacío
@@ -144,8 +149,13 @@ function registrarPrestamo() {
     var FormData = {
         "fechaPrestamo": fechaPrestamo.value,
         "fechaDevolucion": fechaDevolucion.value,
-        "Usuario": nombre.value,
-        "Libro": titulo.value,
+        "usuario":
+        {
+            "idUsuario": Usuario.value
+        },
+        "libro": {
+            idLibro: Libro.value
+        },
         "estado": estado.value,
     };
 
@@ -208,8 +218,8 @@ function registrarPrestamo() {
 function validarCampos() {
     var fechaPrestamo = document.getElementById("fechaPrestamo");
     var fechaDevolucion = document.getElementById("fechaDevolucion");
-    var Usuario = document.getElementById("nombre");
-    var Libro = document.getElementById("titulo");
+    var Usuario = document.getElementById("Usuario");
+    var Libro = document.getElementById("Libro");
     var estado = document.getElementById("estado");
 
     return validarFechaPrestamo(fechaPrestamo) && validarFechaDevolucion(fechaDevolucion) && validarUsuario(Usuario) && validarLibro(Libro) && validarEstado(estado);
@@ -310,10 +320,10 @@ function limpiar() {
     document.getElementById("fechaPrestamo").className = "form-control";
     document.getElementById("fechaDevolucion").value = "";
     document.getElementById("fechaDevolucion").className = "form-control";
-    document.getElementById("nombre").value = "";
-    document.getElementById("nombre").className = "form-control";
-    document.getElementById("titulo").value = "";
-    document.getElementById("titulo").className = "form-control";
+    document.getElementById("Usuario").value = "";
+    document.getElementById("Usuario").className = "form-control";
+    document.getElementById("Libro").value = "";
+    document.getElementById("Libro").className = "form-control";
     document.getElementById("estado").value = "";
     document.getElementById("estado").className = "form-control";
 }
@@ -328,11 +338,11 @@ $(document).on("click", ".editar", function () {
         url: url + idPrestamo,
         type: "GET",
         success: function (Prestamo) {
-            document.getElementById("fechaPrestamo").value = Prestamo.FechaPrestamo;
-            document.getElementById("fechaDevolucion").value = Prestamo.FechaDevolucion;
-            document.getElementById("Usuario").value = Prestamo.Usuario.nombre;
-            document.getElementById("Libro").value = Prestamo.Libro.titulo;
-            document.getElementById("estado").value = Prestamo.Estado;
+            document.getElementById("fechaPrestamo").value = Prestamo.fechaPrestamo;
+            document.getElementById("fechaDevolucion").value = Prestamo.fechaDevolucion;
+            document.getElementById("Usuario").value = Prestamo.usuario.nombre;
+            document.getElementById("Libro").value = Prestamo.libro.titulo;
+            document.getElementById("estado").value = Prestamo.estado;
             $('#exampleModal').modal('show');
         },
         error: function (error) {

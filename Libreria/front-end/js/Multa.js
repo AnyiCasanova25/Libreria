@@ -12,11 +12,12 @@ function buscarMultaPorFiltro(filtro) {
                 for (var i = 0; i < result.length; i++) {
                     var trRegistro = document.createElement("tr");
                     trRegistro.innerHTML = `
-                        <td class="text-center align-middle">${result[i]["Usuario"]}</td>
-                        <td class="text-center align-middle">${result[i]["Prestamo"]}</td>
-                        <td class="text-center align-middle">${result[i]["ValorMulta"]}</td>
-                        <td class="text-center align-middle">${result[i]["FechaMulta"]}</td>
-                        <td class="text-center align-middle">${result[i]["Estado"]}</td>
+                        <td class="text-center align-middle">${result[i]["idMulta"]}</td>
+                        <td class="text-center align-middle">${result[i]["usuario"]["nombre"]}</td>
+                        <td class="text-center align-middle">${result[i]["Prestamo"]["fechaPrestamo"]}</td>
+                        <td class="text-center align-middle">${result[i]["valorMulta"]}</td>
+                        <td class="text-center align-middle">${result[i]["fechaMulta"]}</td>
+                        <td class="text-center align-middle">${result[i]["estado"]}</td>
                         <td class="text-center align-middle">
                             <i class="fas fa-edit editar"  onclick="registrarMultaBandera=false;" data-id="${result[i]["idMulta"]}"></i>
                             <i class="fas fa-trash-alt eliminar" data-id="${result[i]["idMulta"]}"></i>
@@ -48,11 +49,12 @@ function listarMulta() {
             for (var i = 0; i < result.length; i++) {
                 var trRegistro = document.createElement("tr");
                 trRegistro.innerHTML = `
-                        <td class="text-center align-middle">${result[i]["Usuario"]}</td>
-                        <td class="text-center align-middle">${result[i]["Prestamo"]}</td>
-                        <td class="text-center align-middle">${result[i]["ValorMulta"]}</td>
-                        <td class="text-center align-middle">${result[i]["FechaMulta"]}</td>
-                        <td class="text-center align-middle">${result[i]["Estado"]}</td>
+                        <td class="text-center align-middle">${result[i]["idMulta"]}</td>
+                        <td class="text-center align-middle">${result[i]["usuario"]["nombre"]}</td>
+                        <td class="text-center align-middle">${result[i]["Prestamo"]["fechaPrestamo"]}</td>
+                        <td class="text-center align-middle">${result[i]["valorMulta"]}</td>
+                        <td class="text-center align-middle">${result[i]["fechaMulta"]}</td>
+                        <td class="text-center align-middle">${result[i]["estado"]}</td>
                     <td class="text-center align-middle">
                         <i class="fas fa-edit editar"  onclick="registrarMultaBandera=false;" data-id="${result[i]["idMulta"]}"></i>
                         <i class="fas fa-trash-alt eliminar" data-id="${result[i]["idMulta"]}"></i>
@@ -136,8 +138,14 @@ function registrarMulta() {
     }
 
     var FormData = {
-        "Usuario": Usuario.value,
-        "Prestamo": Prestamo.value,
+        "Usuario": 
+        {
+           "idUsuario": Usuario.value
+        },
+        "Prestamo":
+        {
+            "idPrestamo":Prestamo.value
+        },
         "valorMulta": valorMulta.value,
         "fechaMulta": fechaMulta.value,
         "estado": estado.value,
@@ -302,10 +310,10 @@ function validarEstado(cuadroNumero) {
 
 // Función para limpiar campos del formulario
 function limpiar() {
-    document.getElementById("nombre").value = "";
-    document.getElementById("nombre").className = "form-control";
-    document.getElementById("fechaPrestamo").value = "";
-    document.getElementById("fechaPrestamo").className = "form-control";
+    document.getElementById("Usuario").value = "";
+    document.getElementById("Usuario").className = "form-control";
+    document.getElementById("Prestamo").value = "";
+    document.getElementById("Prestamo").className = "form-control";
     document.getElementById("valorMulta").value = "";
     document.getElementById("valorMulta").className = "form-control";
     document.getElementById("fechaMulta").value = "";
@@ -324,8 +332,8 @@ $(document).on("click", ".editar", function () {
         url: url + idMulta,
         type: "GET",
         success: function (Multa) {
-            document.getElementById("Usuario").value = Multa.Usuario.idUsuario;
-            document.getElementById("Prestamo").value = Multa.Prestamo.idPrestamo;
+            document.getElementById("Usuario").value = Multa.usuario.nombre;
+            document.getElementById("Prestamo").value = Multa.prestamo.fechaPrestamo;
             document.getElementById("valorMulta").value = Multa.valorMulta;
             document.getElementById("fechaMulta").value = Multa.fechaMulta;
             document.getElementById("estado").value = Multa.estado;

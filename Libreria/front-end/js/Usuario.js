@@ -12,11 +12,11 @@ function buscarUsuarioPorFiltro(filtro) {
                 for (var i = 0; i < result.length; i++) {
                     var trRegistro = document.createElement("tr");
                     trRegistro.innerHTML = `
-                        <td class="text-center align-middle">${result[i]["idUsuario"]}</td>
-                        <td class="text-center align-middle">${result[i]["Nombre"]}</td>
-                        <td class="text-center align-middle">${result[i]["Correo"]}</td>
-                        <td class="text-center align-middle">${result[i]["Direccion"]}</td>
-                        <td class="text-center align-middle">${result[i]["TipoUsuario"]}</td>
+                    <td class="text-center align-middle">${result[i]["idUsuario"]}</td>
+                    <td class="text-center align-middle">${result[i]["nombre"]}</td>
+                    <td class="text-center align-middle">${result[i]["correo"]}</td>
+                    <td class="text-center align-middle">${result[i]["direccion"]}</td>
+                    <td class="text-center align-middle">${result[i]["tipoUsuario"]}</td>
                         <td class="text-center align-middle">
                             <i class="fas fa-edit editar"  onclick="registrarUsuarioBandera=false;" data-id="${result[i]["idUsuario"]}"></i>
                             <i class="fas fa-trash-alt eliminar" data-id="${result[i]["idUsuario"]}"></i>

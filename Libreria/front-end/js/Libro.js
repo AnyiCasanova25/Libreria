@@ -1,24 +1,24 @@
 function buscarLibroPorFiltro(filtro) {
-    if (filtro=== '') {
+    if (filtro === '') {
         listarLibro(); // Mostrar todos los médicos si estado es vacío
-    }else{
+    } else {
         $.ajax({
             url: "http://localhost:8080/api/v1/Libro/busquedafiltro/" + filtro,
             type: "GET",
             success: function (result) {
                 var cuerpoTabla = document.getElementById("cuerpoTabla");
                 cuerpoTabla.innerHTML = "";
-    
+
                 for (var i = 0; i < result.length; i++) {
                     var trRegistro = document.createElement("tr");
                     trRegistro.innerHTML = `
-                        <td class="text-center align-middle">${result[i]["idLibro"]}</td>
-                        <td class="text-center align-middle">${result[i]["Titulo"]}</td>
-                        <td class="text-center align-middle">${result[i]["Autor"]}</td>
-                        <td class="text-center align-middle">${result[i]["ISBN"]}</td>
-                        <td class="text-center align-middle">${result[i]["Genero"]}</td>
-                        <td class="text-center align-middle">${result[i]["EjemplaresDisponibles"]}</td>
-                        <td class="text-center align-middle">${result[i]["EjemplaresOcupados"]}</td>
+                          <td class="text-center align-middle">${result[i]["idLibro"]}</td>
+                    <td class="text-center align-middle">${result[i]["titulo"]}</td>
+                    <td class="text-center align-middle">${result[i]["autor"]}</td>
+                    <td class="text-center align-middle">${result[i]["isbn"]}</td>
+                    <td class="text-center align-middle">${result[i]["genero"]}</td>
+                    <td class="text-center align-middle">${result[i]["ejemplaresDisponibles"]}</td>
+                    <td class="text-center align-middle">${result[i]["ejemplaresOcupados"]}</td>
                         <td class="text-center align-middle">
                             <i class="fas fa-edit editar"  onclick="registrarLibroBandera=false;" data-id="${result[i]["idLibro"]}"></i>
                             <i class="fas fa-trash-alt eliminar" data-id="${result[i]["idLibro"]}"></i>
@@ -32,7 +32,7 @@ function buscarLibroPorFiltro(filtro) {
             }
         });
     }
-    
+
 }
 
 // URL de la API
@@ -126,8 +126,8 @@ function registrarLibro() {
         $.ajax({
             url: urlLocal,
             type: metodo,
-            contentType:"application/json",
-            data:JSON.stringify(FormData),
+            contentType: "application/json",
+            data: JSON.stringify(FormData),
             success: function (response) {
                 Swal.fire({
                     title: "Éxito",
@@ -299,12 +299,12 @@ $(document).on("click", ".editar", function () {
         url: url + idLibro,
         type: "GET",
         success: function (Libro) {
-            document.getElementById("autor").value = Libro.Autor;
-            document.getElementById("isbn").value = Libro.ISNB;
-            document.getElementById("genero").value = Libro.Genero;
-            document.getElementById("titulo").value = Libro.Titulo;
-            document.getElementById("ejemplaresDisponibles").value = Libro.EjemplaresDisponibles;
-            document.getElementById("ejemplaresOcupados").value = Libro.EjemplaresOcupados;
+            document.getElementById("autor").value = Libro.autor;
+            document.getElementById("isbn").value = Libro.isbn;
+            document.getElementById("genero").value = Libro.genero;
+            document.getElementById("titulo").value = Libro.titulo;
+            document.getElementById("ejemplaresDisponibles").value = Libro.ejemplaresDisponibles;
+            document.getElementById("ejemplaresOcupados").value = Libro.ejemplaresOcupados;
             $('#exampleModal').modal('show');
         },
         error: function (error) {
