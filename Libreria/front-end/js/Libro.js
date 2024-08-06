@@ -50,7 +50,7 @@ function listarLibro() {
             for (var i = 0; i < result.length; i++) {
                 var trRegistro = document.createElement("tr");
                 trRegistro.innerHTML = `
-                    <td>${result[i]["idLibro"]}</td>
+                    <td class="text-center align-middle">${result[i]["idLibro"]}</td>
                     <td class="text-center align-middle">${result[i]["titulo"]}</td>
                     <td class="text-center align-middle">${result[i]["autor"]}</td>
                     <td class="text-center align-middle">${result[i]["isbn"]}</td>

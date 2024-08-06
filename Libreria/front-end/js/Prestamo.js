@@ -12,6 +12,7 @@ function buscarPrestamoPorFiltro(filtro) {
                 for (var i = 0; i < result.length; i++) {
                     var trRegistro = document.createElement("tr");
                     trRegistro.innerHTML = `
+                        <td class="text-center align-middle">${result[i]["idPrestamo"]}</td>
                         <td class="text-center align-middle">${result[i]["FechaPrestamo"]}</td>
                         <td class="text-center align-middle">${result[i]["FechaDevolucion"]}</td>
                          <td class="text-center align-middle">${result[i]["Usuario"]}</td>
@@ -48,16 +49,22 @@ function listarPrestamo() {
             for (var i = 0; i < result.length; i++) {
                 var trRegistro = document.createElement("tr");
                 trRegistro.innerHTML = `
+                    <td class="text-center align-middle">${result[i]["idPrestamo"]}</td>
                     <td class="text-center align-middle">${result[i]["fechaPrestamo"]}</td>
                     <td class="text-center align-middle">${result[i]["fechaDevolucion"]}</td>
-                    <td class="text-center align-middle">${result[i]["nombre"]}</td>
-                    <td class="text-center align-middle">${result[i]["titulo"]}</td>
+                    <td class="text-center align-middle">${result[i]["usuario"]["nombre"]}</td>`;
+                if (result[i]["libro"] != null)
+                    trRegistro.innerHTML += `<td class="text-center align-middle">${result[i]["libro"]["titulo"]}</td>`;
+                else {
+                    trRegistro.innerHTML += `<td class="text-center align-middle">No hay libro</td>`;
+                }
+                trRegistro.innerHTML += `
                     <td class="text-center align-middle">${result[i]["estado"]}</td>
                     <td class="text-center align-middle">
                         <i class="fas fa-edit editar"  onclick="registrarPrestamoBandera=false;" data-id="${result[i]["idPrestamo"]}"></i>
-                        <i class="fas fa-trash-alt eliminar" data-id="${result[i]["idPrestamo"]}"></i>
-                    </td>
-                `;
+                        <i class="fas fa-trash-alt eliminar" data-id="${result[i]["idPrestamo"]}" ></i >
+                    </td >
+                    `;
                 cuerpoTabla.appendChild(trRegistro);
             }
         },
@@ -79,7 +86,7 @@ function cargarUsuarioActivos() {
         type: "GET",
         success: function (result) {
             result.forEach(function (Usuario) {
-                $("#Usuario").append(`<option value="${Usuario.idUsuario}">${Usuario.nombre}</option>`);
+                $("#Usuario").append(`< option value = "${Usuario.idUsuario}" > ${Usuario.nombre}</ > `);
             });
         },
         error: function (error) {
@@ -100,7 +107,7 @@ function cargarLibroActivos() {
         type: "GET",
         success: function (result) {
             result.forEach(function (Libro) {
-                $("#Libro").append(`<option value="${Libro.idLibro}">${Libro.titulo}</option>`);
+                $("#Libro").append(`< option value = "${Libro.idLibro}" > ${Libro.titulo}</ > `);
             });
         },
         error: function (error) {
@@ -115,8 +122,8 @@ var registrarPrestamoBandera = true;
 function registrarPrestamo() {
     var fechaPrestamo = document.getElementById("fechaPrestamo");
     var fechaDevolucion = document.getElementById("fechaDevolucion");
-    var Usuario = document.getElementById("Usuario");
-    var Libro = document.getElementById("Libro");
+    var Usuario = document.getElementById("titulo");
+    var Libro = document.getElementById("nombre");
     var estado = document.getElementById("estado");
 
     // Verificar si algún campo obligatorio está vacío
@@ -137,8 +144,8 @@ function registrarPrestamo() {
     var FormData = {
         "fechaPrestamo": fechaPrestamo.value,
         "fechaDevolucion": fechaDevolucion.value,
-        "Usuario": Usuario.value,
-        "Libro": Libro.value,
+        "Usuario": nombre.value,
+        "Libro": titulo.value,
         "estado": estado.value,
     };
 
@@ -166,8 +173,8 @@ function registrarPrestamo() {
         $.ajax({
             url: urlLocal,
             type: metodo,
-            contentType:"application/json",
-            data:JSON.stringify(FormData),
+            contentType: "application/json",
+            data: JSON.stringify(FormData),
             success: function (response) {
                 Swal.fire({
                     title: "Éxito",
@@ -201,8 +208,8 @@ function registrarPrestamo() {
 function validarCampos() {
     var fechaPrestamo = document.getElementById("fechaPrestamo");
     var fechaDevolucion = document.getElementById("fechaDevolucion");
-    var Usuario = document.getElementById("Usuario");
-    var Libro = document.getElementById("Libro");
+    var Usuario = document.getElementById("nombre");
+    var Libro = document.getElementById("titulo");
     var estado = document.getElementById("estado");
 
     return validarFechaPrestamo(fechaPrestamo) && validarFechaDevolucion(fechaDevolucion) && validarUsuario(Usuario) && validarLibro(Libro) && validarEstado(estado);
@@ -303,10 +310,10 @@ function limpiar() {
     document.getElementById("fechaPrestamo").className = "form-control";
     document.getElementById("fechaDevolucion").value = "";
     document.getElementById("fechaDevolucion").className = "form-control";
-    document.getElementById("Usuario").value = "";
-    document.getElementById("Usuario").className = "form-control";
-    document.getElementById("Libro").value = "";
-    document.getElementById("Libro").className = "form-control";
+    document.getElementById("nombre").value = "";
+    document.getElementById("nombre").className = "form-control";
+    document.getElementById("titulo").value = "";
+    document.getElementById("titulo").className = "form-control";
     document.getElementById("estado").value = "";
     document.getElementById("estado").className = "form-control";
 }
