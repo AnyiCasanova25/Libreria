@@ -15,6 +15,7 @@ function buscarUsuarioPorFiltro(filtro) {
                         <td class="text-center align-middle">${result[i]["idUsuario"]}</td>
                         <td class="text-center align-middle">${result[i]["Nombre"]}</td>
                         <td class="text-center align-middle">${result[i]["Correo"]}</td>
+                        <td class="text-center align-middle">${result[i]["Direccion"]}</td>
                         <td class="text-center align-middle">${result[i]["TipoUsuario"]}</td>
                         <td class="text-center align-middle">
                             <i class="fas fa-edit editar"  onclick="registrarUsuarioBandera=false;" data-id="${result[i]["idUsuario"]}"></i>
@@ -50,6 +51,7 @@ function listarUsuario() {
                     <td class="text-center align-middle">${result[i]["idUsuario"]}</td>
                     <td class="text-center align-middle">${result[i]["nombre"]}</td>
                     <td class="text-center align-middle">${result[i]["correo"]}</td>
+                    <td class="text-center align-middle">${result[i]["direccion"]}</td>
                     <td class="text-center align-middle">${result[i]["tipoUsuario"]}</td>
                     <td class="text-center align-middle">
                         <i class="fas fa-edit editar"  onclick="registrarUsuarioBandera=false;" data-id="${result[i]["idUsuario"]}"></i>
@@ -69,14 +71,16 @@ var registrarUsuarioBandera = true;
 
 // Función para registrar un médico
 function registrarUsuario() {
-    var Nombre = document.getElementById("nombre");
-    var Correo = document.getElementById("correo");
-    var TipoUsuario = document.getElementById("tipoUsuario");
+    var nombre = document.getElementById("nombre");
+    var correo = document.getElementById("correo");
+    var direccion = document.getElementById("direccion");
+    var tipoUsuario = document.getElementById("tipoUsuario");
 
     // Verificar si algún campo obligatorio está vacío
-    if (!validarNombre(Nombre) ||
-        !validarCorreo(Correo) ||
-        !validarTipoUsuario(TipoUsuario)) {
+    if (!validarNombre(nombre) ||
+        !validarCorreo(correo) ||
+        !validarCorreo(direccion) ||
+        !validarTipoUsuario(tipoUsuario)) {
         // Mostrar una alerta indicando que todos los campos son obligatorios
         Swal.fire({
             title: "¡Error!",
@@ -87,14 +91,14 @@ function registrarUsuario() {
     }
 
     var FormData = {
-        "Nombre": nombre.value,
-        "Correo": correo.value,
-        "TipoUsuario": tipoUsuario.value,
+        "nombre": nombre.value,
+        "correo": correo.value,
+        "direccion": direccion.value,
+        "tipoUsuario": tipoUsuario.value,
     };
 
     var metodo = "";
     var urlLocal = "";
-    var textoimprimir = "";
     if (registrarUsuarioBandera == true) {
         metodo = "POST";
         urlLocal = url;
@@ -152,9 +156,10 @@ function registrarUsuario() {
 function validarCampos() {
     var nombre = document.getElementById("nombre");
     var correo = document.getElementById("correo");
+    var direccion = document.getElementById("direccion");
     var tipoUsuario = document.getElementById("tipoUsuario");
 
-    return validarNombre(nombre) && validarCorreo(correo) && validarTipoUsuario(tipoUsuario);
+    return validarNombre(nombre) && validarCorreo(correo) && validarDireccion(direccion) &&validarTipoUsuario(tipoUsuario);
 }
 
 function validarNombre(cuadroNumero) {
@@ -193,6 +198,24 @@ function validarCorreo(cuadroNumero) {
     return valido;
 }
 
+function validarDireccion(cuadroNumero) {
+    var valor = cuadroNumero.value;
+    var valido = true;
+
+    if (valor.length < 1 || valor.length > 100) {
+        valido = false;
+    }
+
+    if (valido) {
+        cuadroNumero.className = "form-control is-valid";
+    } else {
+        cuadroNumero.className = "form-control is-invalid";
+    }
+
+    return valido;
+}
+
+
 // Función Telefono
 
 function validarTipoUsuario(cuadroNumero) {
@@ -218,8 +241,10 @@ function limpiar() {
     document.getElementById("nombre").className = "form-control";
     document.getElementById("correo").value = "";
     document.getElementById("correo").className = "form-control";
+    document.getElementById("direccion").value = "";
+    document.getElementById("direccion").className = "form-control";
     document.getElementById("tipoUsuario").value = "";
-    document.getElementById("tipoUsuario").value = "";
+    document.getElementById("tipoUsuario").value = "form-control";
 }
 
 var idUsuario = "";
@@ -234,6 +259,7 @@ $(document).on("click", ".editar", function () {
         success: function (Usuario) {
             document.getElementById("nombre").value = Usuario.nombre;
             document.getElementById("correo").value = Usuario.correo;
+            document.getElementById("direccion").value = Usuario.direccion;
             document.getElementById("tipoUsuario").value = Usuario.tipoUsuario;
             $('#exampleModal').modal('show');
         },

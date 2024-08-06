@@ -12,7 +12,6 @@ function buscarMultaPorFiltro(filtro) {
                 for (var i = 0; i < result.length; i++) {
                     var trRegistro = document.createElement("tr");
                     trRegistro.innerHTML = `
-                        <td class="text-center align-middle">${result[i]["idMulta"]}</td>
                         <td class="text-center align-middle">${result[i]["Usuario"]}</td>
                         <td class="text-center align-middle">${result[i]["Prestamo"]}</td>
                         <td class="text-center align-middle">${result[i]["ValorMulta"]}</td>
@@ -49,7 +48,6 @@ function listarMulta() {
             for (var i = 0; i < result.length; i++) {
                 var trRegistro = document.createElement("tr");
                 trRegistro.innerHTML = `
-                    <td class="text-center align-middle">${result[i]["idMulta"]}</td>
                         <td class="text-center align-middle">${result[i]["Usuario"]}</td>
                         <td class="text-center align-middle">${result[i]["Prestamo"]}</td>
                         <td class="text-center align-middle">${result[i]["ValorMulta"]}</td>
@@ -334,7 +332,7 @@ $(document).on("click", ".editar", function () {
             $('#exampleModal').modal('show');
         },
         error: function (error) {
-            alert("Error al obtener los datos del Usuario: " + error.statusText);
+            alert("Error al obtener los datos de la multa: " + error.statusText);
         }
     });
 });
@@ -366,7 +364,7 @@ $(document).on("click", ".eliminar", function () {
     // Mostrar un cuadro de diálogo para confirmar la eliminación
     Swal.fire({
         title: '¿Estás seguro?',
-        text: "¿Deseas eliminar este usuario?",
+        text: "¿Deseas eliminar esta Multa?",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

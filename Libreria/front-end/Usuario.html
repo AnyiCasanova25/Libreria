@@ -107,6 +107,12 @@
                                                         onfocusout="validarCorreo(this)" required>
                                                     </div>
 
+                                                    <div class="col col-xl-6 col-12 table-hover">
+                                                        <label for="">Direccion</label>
+                                                        <input type="text" id="direccion" class="form-control"
+                                                        onfocusout="validarDireccion(this)" required>
+                                                    </div>
+
                                                     <div class="col col-xl-6 col-12">
                                                         <label for="">Tipo de Usuario</label>
                                                         <select type="text" id="tipoUsuario" class="form-control"
@@ -124,7 +130,7 @@
                                 </div>
                                 <div class="modal-footer ">
                                     <button type="button" class="btn btn-dark"
-                                        onclick="registrarUsuario();">Registrar</button>
+                                        onclick="registrarUsuario(); limpiar();">Registrar</button>
                                         <!-- justo aqui va un limpiar();, DESPUES DE REGISTRAR USUARIO -->
                                 </div>
                             </div>

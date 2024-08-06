@@ -12,7 +12,6 @@ function buscarPrestamoPorFiltro(filtro) {
                 for (var i = 0; i < result.length; i++) {
                     var trRegistro = document.createElement("tr");
                     trRegistro.innerHTML = `
-                        <td>${result[i]["idPrestamo"]}</td>
                         <td class="text-center align-middle">${result[i]["FechaPrestamo"]}</td>
                         <td class="text-center align-middle">${result[i]["FechaDevolucion"]}</td>
                          <td class="text-center align-middle">${result[i]["Usuario"]}</td>
@@ -49,11 +48,10 @@ function listarPrestamo() {
             for (var i = 0; i < result.length; i++) {
                 var trRegistro = document.createElement("tr");
                 trRegistro.innerHTML = `
-                    <td>${result[i]["idPrestamo"]}</td>
                     <td class="text-center align-middle">${result[i]["fechaPrestamo"]}</td>
                     <td class="text-center align-middle">${result[i]["fechaDevolucion"]}</td>
-                    <td class="text-center align-middle">${result[i]["Usuario"]["Usuario"]}</td>
-                    <td class="text-center align-middle">${result[i]["Libro"]["Libro"]}</td>
+                    <td class="text-center align-middle">${result[i]["nombre"]}</td>
+                    <td class="text-center align-middle">${result[i]["titulo"]}</td>
                     <td class="text-center align-middle">${result[i]["estado"]}</td>
                     <td class="text-center align-middle">
                         <i class="fas fa-edit editar"  onclick="registrarPrestamoBandera=false;" data-id="${result[i]["idPrestamo"]}"></i>
@@ -246,24 +244,6 @@ function validarFechaDevolucion(cuadroNumero) {
     return valido;
 }
 
-// Función Telefono
-
-function validarNombre(cuadroNumero) {
-    var valor = cuadroNumero.value;
-    var valido = true;
-
-    if (valor.length < 1 || valor.length > 100) {
-        valido = false;
-    }
-
-    if (valido) {
-        cuadroNumero.className = "form-control is-valid";
-    } else {
-        cuadroNumero.className = "form-control is-invalid";
-    }
-
-    return valido;
-}
 
 function validarLibro(cuadroNumero) {
     var valor = cuadroNumero.value;
@@ -343,8 +323,8 @@ $(document).on("click", ".editar", function () {
         success: function (Prestamo) {
             document.getElementById("fechaPrestamo").value = Prestamo.FechaPrestamo;
             document.getElementById("fechaDevolucion").value = Prestamo.FechaDevolucion;
-            document.getElementById("Usuario").value = Prestamo.Usuario.idUsuario;
-            document.getElementById("Libro").value = Prestamo.Libro.idLibro;
+            document.getElementById("Usuario").value = Prestamo.Usuario.nombre;
+            document.getElementById("Libro").value = Prestamo.Libro.titulo;
             document.getElementById("estado").value = Prestamo.Estado;
             $('#exampleModal').modal('show');
         },
